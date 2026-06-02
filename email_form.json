@@ -132,7 +132,9 @@
                 "id": "nextButton",
                 "label": "Next",
                 "variant": "primary",
-                "action": { "type": "NEXT_SCREEN" }
+                "action": {
+                  "type": "submit"
+                }
               }
             ]
           }
@@ -161,8 +163,8 @@
                 "iconName": "googleLogo",
                 "iconPosition": "left",
                 "action": {
-                  "type": "SOCIAL_LOGIN",
-                  "provider": "GOOGLE"
+                  "type": "navigate",
+                  "target": "GoogleAuthMFE"
                 }
               },
               {
@@ -172,8 +174,8 @@
                 "iconName": "appleLogo",
                 "iconPosition": "left",
                 "action": {
-                  "type": "SOCIAL_LOGIN",
-                  "provider": "APPLE"
+                  "type": "navigate",
+                  "target": "AppleAuthMFE"
                 }
               }
             ]

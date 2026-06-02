@@ -115,7 +115,7 @@
                 "id": "doneButton",
                 "label": "Done",
                 "variant": "primary",
-                "action": { "type": "NEXT_SCREEN" }
+                "action": { "type": "submit" }
               }
             ]
           }

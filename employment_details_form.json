@@ -572,7 +572,7 @@
                 "id": "nextButton",
                 "label": "Next",
                 "variant": "primary",
-                "action": { "type": "NEXT_SCREEN" }
+                "action": { "type": "submit" }
               }
             ]
           }

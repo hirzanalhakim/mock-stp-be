@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/screen/:id",
+      "destination": "/api/screen/:id"
+    }
+  ]
+}

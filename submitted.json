@@ -1,0 +1,127 @@
+{
+  "screenId": "applySubmitted",
+  "version": 1,
+  "schema": {},
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": []
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "type": "Control",
+          "component": "Image",
+          "options": {
+            "id": "ektpImagePreview",
+            "label": "E-KTP upload",
+            "placement": {
+              "horizontal": "center"
+            },
+            "valueSource": {
+              "type": "binding",
+              "path": "urlToImage"
+            },
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Typo",
+          "options": {
+            "items": [
+              {
+                "id": "submittedTitle",
+                "variant": "title1",
+                "value": "Application in progress",
+                "placement": {
+                  "horizontal": "center"
+                }
+              },
+              {
+                "id": "submittedApplyTime",
+                "variant": "body",
+                "value": "",
+                "placement": {
+                  "horizontal": "center"
+                },
+                "valueSource": {
+                  "type": "binding",
+                  "path": "apply.time"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Control",
+          "component": "SummaryList",
+          "options": {
+            "id": "submittedApplySummary",
+            "items": [
+              {
+                "id": "submittedName",
+                "label": "Name",
+                "value": ""
+              },
+              {
+                "id": "submittedApplicationType",
+                "label": "Application type",
+                "value": ""
+              },
+              {
+                "id": "submittedRegistrationNumber",
+                "label": "Registration number",
+                "value": ""
+              },
+              {
+                "id": "submittedEmailAddress",
+                "label": "Email address",
+                "value": ""
+              }
+            ],
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Typo",
+          "options": {
+            "items": [
+              {
+                "id": "submittedNote",
+                "variant": "note",
+                "title": "Note:",
+                "value": "Your account will be activated once the data verification is successful. A confirmation email will be sent to you after the process is completed.",
+                "placement": {
+                  "horizontal": "center"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "type": "Control",
+          "component": "Button",
+          "options": {
+            "items": [
+              {
+                "id": "doneButton",
+                "label": "Done",
+                "variant": "primary",
+                "action": { "type": "NEXT_SCREEN" }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "data": {}
+}

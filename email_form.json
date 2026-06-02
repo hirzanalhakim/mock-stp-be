@@ -1,0 +1,189 @@
+{
+  "screenId": "email_form",
+  "version": 1,
+  "schema": {
+    "emailAddress": {
+      "required": true,
+      "type": "email",
+      "maxLength": 200,
+      "messages": {
+        "required": "Email address is required",
+        "email": "Please enter a valid email address"
+      }
+    },
+    "confirmEmailAddress": {
+      "required": true,
+      "type": "email",
+      "maxLength": 200,
+      "messages": {
+        "required": "Confirm email address is required",
+        "email": "Please enter a valid email address",
+        "matchField": "Email addresses do not match"
+      },
+      "validations": [
+        {
+          "type": "MATCH_FIELD",
+          "field": "emailAddress"
+        }
+      ]
+    }
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "type": "Control",
+          "component": "NavigationHeader",
+          "options": {
+            "items": [
+              {
+                "id": "screenHeader",
+                "title": "Apply",
+                "subtitle": "",
+                "enableBackButton": true,
+                "enableCloseButton": true
+              }
+            ]
+          }
+        },
+        {
+          "type": "Control",
+          "component": "ProgressIndicator",
+          "options": {
+            "items": [
+              {
+                "id": "progressBar",
+                "type": "stepper",
+                "currentStep": 1,
+                "totalSteps": 4,
+                "showStepText": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "type": "Control",
+          "component": "Typo",
+          "options": {
+            "items": [
+              {
+                "id": "productName",
+                "variant": "body",
+                "value": "",
+                "valueSource": {
+                  "type": "binding",
+                  "path": "product.name"
+                }
+              },
+              {
+                "id": "detailsTitle",
+                "variant": "title1",
+                "value": "Employment details"
+              },
+              {
+                "id": "detailsSubtitle",
+                "variant": "body",
+                "value": "Fill in your email address"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Control",
+          "component": "TextInput",
+          "scope": "#/properties/emailAddress",
+          "label": "Email address",
+          "options": {
+            "id": "emailAddress",
+            "placeholder": "Enter email address",
+            "keyboardType": "email",
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "TextInput",
+          "scope": "#/properties/confirmEmailAddress",
+          "label": "Confirm email address",
+          "options": {
+            "id": "confirmEmailAddress",
+            "placeholder": "Re-enter email address",
+            "keyboardType": "email",
+            "span": 12
+          }
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "type": "Control",
+          "component": "Button",
+          "options": {
+            "items": [
+              {
+                "id": "nextButton",
+                "label": "Next",
+                "variant": "primary",
+                "action": { "type": "NEXT_SCREEN" }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Divider",
+          "options": {
+            "items": [
+              {
+                "id": "footerDivider",
+                "label": "Or continue with an account"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Button",
+          "options": {
+            "items": [
+              {
+                "id": "googleAccountButton",
+                "label": "Continue with Google",
+                "variant": "secondary",
+                "iconName": "googleLogo",
+                "iconPosition": "left",
+                "action": {
+                  "type": "SOCIAL_LOGIN",
+                  "provider": "GOOGLE"
+                }
+              },
+              {
+                "id": "appleAccountButton",
+                "label": "Continue with Apple",
+                "variant": "secondary",
+                "iconName": "appleLogo",
+                "iconPosition": "left",
+                "action": {
+                  "type": "SOCIAL_LOGIN",
+                  "provider": "APPLE"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "data": {
+    "emailAddress": "",
+    "confirmEmailAddress": ""
+  }
+}

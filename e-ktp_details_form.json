@@ -1,0 +1,568 @@
+{
+  "screenId": "e-ktp_details_form",
+  "version": 1,
+  "schema": {
+    "idNumber": {
+      "required": true,
+      "type": "text",
+      "minLength": 16,
+      "maxLength": 16,
+      "pattern": "^[0-9]{16}$",
+      "messages": {
+        "required": "E-KTP number is required",
+        "minLength": "E-KTP number must be exactly 16 digits",
+        "maxLength": "E-KTP number must be exactly 16 digits",
+        "pattern": "E-KTP number must be exactly 16 digits"
+      }
+    },
+    "name": {
+      "required": true,
+      "type": "text",
+      "maxLength": 200,
+      "messages": {
+        "required": "E-KTP name is required",
+        "maxLength": "Name must be at most 200 characters"
+      }
+    },
+    "placeOfBirth": {
+      "required": true,
+      "type": "text",
+      "maxLength": 80,
+      "messages": {
+        "required": "Place of birth is required",
+        "maxLength": "Place of birth must be at most 80 characters"
+      }
+    },
+    "dob": {
+      "required": true,
+      "type": "date",
+      "messages": {
+        "required": "Date of birth is required",
+        "minAge": "You must be at least 18 years old",
+        "maxAge": "Age must be less than 120",
+        "noFutureDate": "Date cannot be in the future"
+      },
+      "validations": [
+        { "type": "MIN_AGE", "value": 18 },
+        { "type": "MAX_AGE", "value": 120 },
+        { "type": "NO_FUTURE_DATE" }
+      ]
+    },
+    "gender": {
+      "required": true,
+      "type": "select",
+      "messages": {
+        "required": "Gender is required"
+      }
+    },
+    "religion": {
+      "required": true,
+      "type": "select",
+      "messages": {
+        "required": "Religion is required"
+      }
+    },
+    "maritalStatus": {
+      "required": true,
+      "type": "select",
+      "messages": {
+        "required": "Marital status is required"
+      }
+    },
+    "educationLevel": {
+      "required": true,
+      "type": "select",
+      "messages": {
+        "required": "Education level is required"
+      }
+    },
+    "mothersMaidenName": {
+      "required": true,
+      "type": "text",
+      "maxLength": 200,
+      "messages": {
+        "required": "Mother's maiden name is required",
+        "maxLength": "Mother's maiden name must be at most 200 characters"
+      }
+    },
+    "address": {
+      "required": true,
+      "type": "text",
+      "maxLength": 300,
+      "messages": {
+        "required": "Address is required",
+        "maxLength": "Address must be at most 300 characters"
+      }
+    },
+    "addressProvince": {
+      "required": true,
+      "type": "select",
+      "messages": {
+        "required": "Province is required"
+      }
+    },
+    "addressCity": {
+      "required": true,
+      "type": "select",
+      "messages": {
+        "required": "City/Regency is required"
+      }
+    },
+    "addressDistrict": {
+      "required": true,
+      "type": "select",
+      "messages": {
+        "required": "District is required"
+      }
+    },
+    "addressSubdistrict": {
+      "required": true,
+      "type": "select",
+      "messages": {
+        "required": "Sub-district/Village is required"
+      }
+    },
+    "addressRT": {
+      "required": false,
+      "type": "text",
+      "maxLength": 3,
+      "pattern": "^[0-9]{1,3}$",
+      "messages": {
+        "pattern": "RT must be 1-3 digits (numbers only)"
+      }
+    },
+    "addressRW": {
+      "required": false,
+      "type": "text",
+      "maxLength": 3,
+      "pattern": "^[0-9]{1,3}$",
+      "messages": {
+        "pattern": "RW must be 1-3 digits (numbers only)"
+      }
+    },
+    "postcode": {
+      "required": true,
+      "type": "select",
+      "messages": {
+        "required": "Postcode is required"
+      }
+    },
+    "termsAndConditionsCheckbox": {
+      "required": true,
+      "type": "boolean",
+      "messages": {
+        "required": "You must accept the terms and conditions"
+      }
+    }
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "type": "Control",
+          "component": "NavigationHeader",
+          "options": {
+            "items": [
+              {
+                "id": "screenHeader",
+                "title": "Apply",
+                "subtitle": "",
+                "enableBackButton": true,
+                "enableCloseButton": true
+              }
+            ]
+          }
+        },
+        {
+          "type": "Control",
+          "component": "ProgressIndicator",
+          "options": {
+            "items": [
+              {
+                "id": "progressBar",
+                "type": "stepper",
+                "currentStep": 2,
+                "totalSteps": 4,
+                "showStepText": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "type": "Control",
+          "component": "Typo",
+          "options": {
+            "items": [
+              {
+                "id": "productName",
+                "variant": "body",
+                "value": "",
+                "valueSource": {
+                  "type": "binding",
+                  "path": "product.name"
+                }
+              },
+              {
+                "id": "detailsTitle",
+                "variant": "title1",
+                "value": "Your e-KTP details"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Image",
+          "options": {
+            "id": "ektpImagePreview",
+            "label": "E-KTP upload",
+            "span": 12,
+            "valueSource": {
+              "type": "binding",
+              "path": "documents.ektp.imageUrl"
+            }
+          }
+        },
+        {
+          "type": "Control",
+          "component": "TextInput",
+          "scope": "#/properties/idNumber",
+          "label": "E-KTP number",
+          "options": {
+            "id": "eKTPIDNumber",
+            "keyboardType": "numeric",
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "TextInput",
+          "scope": "#/properties/name",
+          "label": "E-KTP name",
+          "options": {
+            "id": "eKTPName",
+            "keyboardType": "text",
+            "helperText": "The name cannot contain punctuation marks",
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "TextInput",
+          "scope": "#/properties/placeOfBirth",
+          "label": "Place of birth",
+          "options": {
+            "id": "eKTPPlaceOfBirth",
+            "keyboardType": "text",
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "DatePicker",
+          "scope": "#/properties/dob",
+          "label": "Date of Birth",
+          "options": {
+            "id": "eKTPDateOfBirth",
+            "displayFormat": "dd MMM yyyy",
+            "valueFormat": "yyyy-MM-dd",
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Select",
+          "scope": "#/properties/gender",
+          "label": "Gender",
+          "options": {
+            "id": "eKTPGender",
+            "dataSource": {
+              "type": "static",
+              "options": [
+                { "code": "M", "desc": "Male" },
+                { "code": "F", "desc": "Female" }
+              ],
+              "valueKey": "code",
+              "displayKey": "desc"
+            },
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Select",
+          "scope": "#/properties/religion",
+          "label": "Religion",
+          "options": {
+            "id": "eKTPReligion",
+            "placeholder": "Select religion",
+            "dataSource": {
+              "type": "reference",
+              "endpoint": "/api/v1/retrieve/religion",
+              "valueKey": "code",
+              "displayKey": "desc"
+            },
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Select",
+          "scope": "#/properties/maritalStatus",
+          "label": "Marital status",
+          "options": {
+            "id": "eKTPMaritalStatus",
+            "placeholder": "Select your marital status",
+            "dataSource": {
+              "type": "reference",
+              "endpoint": "/api/v1/retrieve/maritalStatus",
+              "valueKey": "code",
+              "displayKey": "desc"
+            },
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Select",
+          "scope": "#/properties/educationLevel",
+          "label": "Education",
+          "options": {
+            "id": "eKTPEducationLevel",
+            "placeholder": "Select your education level",
+            "dataSource": {
+              "type": "reference",
+              "endpoint": "/api/v1/retrieve/educationLevel",
+              "valueKey": "code",
+              "displayKey": "desc"
+            },
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "TextInput",
+          "scope": "#/properties/mothersMaidenName",
+          "label": "Mother's maiden name",
+          "options": {
+            "id": "eKTPMothersMaidenName",
+            "placeholder": "Enter mother's maiden name",
+            "keyboardType": "text",
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "TextInput",
+          "scope": "#/properties/address",
+          "label": "Address",
+          "options": {
+            "id": "eKTPAddress",
+            "keyboardType": "text",
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Select",
+          "scope": "#/properties/addressProvince",
+          "label": "Province",
+          "options": {
+            "id": "eKTPAddressProvince",
+            "placeholder": "Select province",
+            "dataSource": {
+              "type": "reference",
+              "endpoint": "/api/v1/retrieve/province",
+              "valueKey": "code",
+              "displayKey": "desc"
+            },
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Select",
+          "scope": "#/properties/addressCity",
+          "label": "City/Regency",
+          "options": {
+            "id": "eKTPAddressCity",
+            "placeholder": "Select city/regency",
+            "dataSource": {
+              "type": "reference",
+              "endpoint": "/api/v1/retrieve/city",
+              "valueKey": "code",
+              "displayKey": "desc",
+              "dependencies": [
+                { "field": "eKTPAddressProvince", "param": "province" }
+              ]
+            },
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Select",
+          "scope": "#/properties/addressDistrict",
+          "label": "District",
+          "options": {
+            "id": "eKTPAddressDistrict",
+            "placeholder": "Select district",
+            "dataSource": {
+              "type": "reference",
+              "endpoint": "/api/v1/retrieve/district",
+              "valueKey": "code",
+              "displayKey": "desc",
+              "dependencies": [
+                { "field": "eKTPAddressProvince", "param": "province" },
+                { "field": "eKTPAddressCity", "param": "city" }
+              ]
+            },
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Select",
+          "scope": "#/properties/addressSubdistrict",
+          "label": "Sub-district/Village",
+          "options": {
+            "id": "eKTPAddressSubdistrict",
+            "placeholder": "Select sub-district/village",
+            "dataSource": {
+              "type": "reference",
+              "endpoint": "/api/v1/retrieve/subdistrict",
+              "valueKey": "code",
+              "displayKey": "desc",
+              "dependencies": [
+                { "field": "eKTPAddressProvince", "param": "province" },
+                { "field": "eKTPAddressCity", "param": "city" },
+                { "field": "eKTPAddressDistrict", "param": "district" }
+              ]
+            },
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "TextInput",
+          "scope": "#/properties/addressRT",
+          "label": "RT",
+          "options": {
+            "id": "eKTPAddressRT",
+            "keyboardType": "numeric",
+            "span": 6
+          }
+        },
+        {
+          "type": "Control",
+          "component": "TextInput",
+          "scope": "#/properties/addressRW",
+          "label": "RW",
+          "options": {
+            "id": "eKTPAddressRW",
+            "keyboardType": "numeric",
+            "span": 6
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Select",
+          "scope": "#/properties/postcode",
+          "label": "Postcode",
+          "options": {
+            "id": "eKTPPostcode",
+            "dataSource": {
+              "type": "reference",
+              "endpoint": "/api/v1/retrieve/postcodes",
+              "valueKey": "code",
+              "displayKey": "desc",
+              "dependencies": [
+                { "field": "eKTPAddressProvince", "param": "province" },
+                { "field": "eKTPAddressCity", "param": "city" },
+                { "field": "eKTPAddressDistrict", "param": "district" },
+                { "field": "eKTPAddressSubdistrict", "param": "subdistrict" }
+              ]
+            },
+            "span": 12
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Checkbox",
+          "scope": "#/properties/termsAndConditionsCheckbox",
+          "label": "I hereby declare that the data I have entered is accurate and matches the information stated on my e-KTP",
+          "options": {
+            "id": "eKTPTermsAndConditionsCheckbox",
+            "title": "Terms & Conditions:",
+            "span": 12
+          }
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "type": "Control",
+          "component": "Button",
+          "options": {
+            "items": [
+              {
+                "id": "nextButton",
+                "label": "Next",
+                "variant": "primary",
+                "action": { "type": "NEXT_SCREEN" }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Button",
+          "options": {
+            "items": [
+              {
+                "id": "retakeButton",
+                "label": "Retake",
+                "variant": "secondary",
+                "action": {
+                  "type": "EMIT_EVENT",
+                  "params": {
+                    "eventName": "RETAKE_EKTP_IMAGE",
+                    "documentType": "E_KTP"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "data": {
+    "idNumber": "",
+    "name": "",
+    "placeOfBirth": "",
+    "dob": "",
+    "gender": null,
+    "religion": null,
+    "maritalStatus": null,
+    "educationLevel": null,
+    "mothersMaidenName": "",
+    "address": "",
+    "addressProvince": null,
+    "addressCity": null,
+    "addressDistrict": null,
+    "addressSubdistrict": null,
+    "addressRT": "",
+    "addressRW": "",
+    "postcode": null,
+    "termsAndConditionsCheckbox": false
+  }
+}

@@ -1,602 +1,179 @@
 {
-  "screenId": "employment_details_form",
-  "version": 1,
-  "schema": {
-    "occupation": {
-      "required": true,
-      "type": "select",
-      "messages": {
-        "required": "Occupation is required"
-      }
-    },
-    "industryCategory": {
-      "required": true,
-      "type": "select",
-      "messages": {
-        "required": "Industry category is required"
-      }
-    },
-    "companyName": {
-      "required": true,
-      "type": "text",
-      "maxLength": 200,
-      "messages": {
-        "required": "Company name is required",
-        "maxLength": "Company name must be at most 200 characters"
-      }
-    },
-    "positionJobTitle": {
-      "required": true,
-      "type": "select",
-      "messages": {
-        "required": "Position/Job title is required"
-      }
-    },
-    "companyCategory": {
-      "required": true,
-      "type": "select",
-      "messages": {
-        "required": "Company category is required"
-      }
-    },
-    "employmentStatus": {
-      "required": true,
-      "type": "select",
-      "messages": {
-        "required": "Employment status is required"
-      }
-    },
-    "officePhoneNumber": {
-      "required": true,
-      "type": "text",
-      "maxLength": 12,
-      "messages": {
-        "required": "Office phone number is required",
-        "maxLength": "Office phone number must be at most 12 digits"
-      }
-    },
-    "dateJoined": {
-      "required": true,
-      "type": "date",
-      "messages": {
-        "required": "Date joined is required",
-        "noFutureDate": "Date cannot be in the future"
-      },
-      "validations": [
-        { "type": "NO_FUTURE_DATE" }
-      ]
-    },
-    "officeAddress": {
-      "required": true,
-      "type": "text",
-      "maxLength": 300,
-      "messages": {
-        "required": "Office address is required",
-        "maxLength": "Office address must be at most 300 characters"
-      }
-    },
-    "province": {
-      "required": true,
-      "type": "select",
-      "messages": {
-        "required": "Province is required"
-      }
-    },
-    "city": {
-      "required": true,
-      "type": "select",
-      "messages": {
-        "required": "City/Regency is required"
-      }
-    },
-    "district": {
-      "required": true,
-      "type": "select",
-      "messages": {
-        "required": "District is required"
-      }
-    },
-    "subdistrict": {
-      "required": true,
-      "type": "select",
-      "messages": {
-        "required": "Sub-district/Village is required"
-      }
-    },
-    "addressRT": {
-      "required": false,
-      "type": "text",
-      "maxLength": 3,
-      "pattern": "^[0-9]{1,3}$",
-      "messages": {
-        "pattern": "RT must be 1-3 digits (numbers only)"
-      }
-    },
-    "addressRW": {
-      "required": false,
-      "type": "text",
-      "maxLength": 3,
-      "pattern": "^[0-9]{1,3}$",
-      "messages": {
-        "pattern": "RW must be 1-3 digits (numbers only)"
-      }
-    },
-    "postcode": {
-      "required": true,
-      "type": "select",
-      "messages": {
-        "required": "Postcode is required"
-      }
-    },
-    "declarationCheckbox": {
-      "required": true,
-      "type": "boolean",
-      "messages": {
-        "required": "You must accept the declaration"
-      }
-    }
-  },
-  "uiSchema": {
-    "header": {
-      "type": "VerticalLayout",
-      "elements": [
-        {
-          "type": "Control",
-          "component": "NavigationHeader",
-          "options": {
-            "items": [
-              {
-                "id": "screenHeader",
-                "title": "Apply",
-                "subtitle": "",
-                "enableBackButton": true,
-                "enableCloseButton": true
-              }
-            ]
-          }
+    "screenId": "employment_details_form",
+    "version": 1,
+    "schema": {
+        "companyName": {
+            "required": true,
+            "type": "text",
+            "maxLength": 200,
+            "messages": {
+                "required": "Company name is required",
+                "maxLength": "Company name must be at most 200 characters"
+            }
         },
-        {
-          "type": "Control",
-          "component": "ProgressIndicator",
-          "options": {
-            "items": [
-              {
-                "id": "progressBar",
-                "type": "stepper",
-                "currentStep": 3,
-                "totalSteps": 4,
-                "showStepText": true
-              }
-            ]
-          }
+        "officePhoneNumber": {
+            "required": true,
+            "type": "text",
+            "maxLength": 12,
+            "messages": {
+                "required": "Office phone number is required",
+                "maxLength": "Office phone number must be at most 12 digits"
+            }
+        },
+        "officeAddress": {
+            "required": true,
+            "type": "text",
+            "maxLength": 300,
+            "messages": {
+                "required": "Office address is required",
+                "maxLength": "Office address must be at most 300 characters"
+            }
+        },
+        "addressRT": {
+            "required": false,
+            "type": "text",
+            "maxLength": 3,
+            "pattern": "^[0-9]{1,3}$",
+            "messages": {
+                "pattern": "RT must be 1-3 digits (numbers only)"
+            }
+        },
+        "addressRW": {
+            "required": false,
+            "type": "text",
+            "maxLength": 3,
+            "pattern": "^[0-9]{1,3}$",
+            "messages": {
+                "pattern": "RW must be 1-3 digits (numbers only)"
+            }
         }
-      ]
     },
-    "body": {
-      "type": "VerticalLayout",
-      "elements": [
-        {
-          "type": "Control",
-          "component": "Typo",
-          "options": {
-            "items": [
-              {
-                "id": "productName",
-                "variant": "body",
-                "value": "",
-                "valueSource": {
-                  "type": "binding",
-                  "path": "product.name"
+    "uiSchema": {
+        "header": {
+            "type": "VerticalLayout",
+            "elements": [
+                {
+                    "type": "Control",
+                    "component": "NavigationHeader",
+                    "options": {
+                        "items": [
+                            {
+                                "id": "screenHeader",
+                                "title": "Apply",
+                                "subtitle": "",
+                                "enableBackButton": true,
+                                "enableCloseButton": true
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "Control",
+                    "component": "ProgressIndicator",
+                    "options": {
+                        "items": [
+                            {
+                                "id": "progressBar",
+                                "type": "stepper",
+                                "currentStep": 3,
+                                "totalSteps": 4,
+                                "showStepText": true
+                            }
+                        ]
+                    }
                 }
-              },
-              {
-                "id": "detailsTitle",
-                "variant": "title1",
-                "value": "Employment details"
-              }
             ]
-          }
         },
-        {
-          "type": "Control",
-          "component": "Select",
-          "scope": "#/properties/occupation",
-          "label": "Occupation",
-          "options": {
-            "id": "employmentOccupation",
-            "placeholder": "Select occupation",
-            "dataSource": {
-              "type": "reference",
-              "endpoint": "/api/v1/retrieve/occupation",
-              "valueKey": "code",
-              "displayKey": "desc"
-            },
-            "span": 12
-          }
+        "body": {
+            "type": "VerticalLayout",
+            "elements": [
+                {
+                    "type": "Control",
+                    "component": "Typo",
+                    "options": {
+                        "items": [
+                            {
+                                "id": "productName",
+                                "variant": "body",
+                                "value": "",
+                                "valueSource": {
+                                    "type": "binding",
+                                    "path": "product.name"
+                                }
+                            },
+                            {
+                                "id": "detailsTitle",
+                                "variant": "title1",
+                                "value": "Employment details"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "Control",
+                    "component": "TextInput",
+                    "scope": "#/properties/companyName",
+                    "label": "Company name",
+                    "options": {
+                        "id": "employmentCompanyName",
+                        "placeholder": "Enter company name",
+                        "keyboardType": "text",
+                        "conditions": {
+                            "visibility": {
+                                "field": "industryCategory",
+                                "operator": "NOT_EMPTY"
+                            }
+                        },
+                        "span": 12
+                    }
+                },
+                {
+                    "type": "Control",
+                    "component": "TextInput",
+                    "scope": "#/properties/addressRW",
+                    "label": "RW",
+                    "options": {
+                        "id": "employmentAddressRW",
+                        "placeholder": "Enter RW",
+                        "keyboardType": "numeric",
+                        "conditions": {
+                            "visibility": {
+                                "field": "industryCategory",
+                                "operator": "NOT_EMPTY"
+                            }
+                        },
+                        "span": 6
+                    }
+                }
+            ]
         },
-        {
-          "type": "Control",
-          "component": "Select",
-          "scope": "#/properties/industryCategory",
-          "label": "Industry Category",
-          "options": {
-            "id": "employmentIndustryCategory",
-            "placeholder": "Select industry category",
-            "dataSource": {
-              "type": "reference",
-              "endpoint": "/api/v1/retrieve/industryCategory",
-              "valueKey": "code",
-              "displayKey": "desc"
-            },
-            "conditions": {
-              "visibility": {
-                "field": "occupation",
-                "operator": "NOT_EMPTY"
-              }
-            },
-            "span": 12
-          }
-        },
-        {
-          "type": "Control",
-          "component": "TextInput",
-          "scope": "#/properties/companyName",
-          "label": "Company name",
-          "options": {
-            "id": "employmentCompanyName",
-            "placeholder": "Enter company name",
-            "keyboardType": "text",
-            "conditions": {
-              "visibility": {
-                "field": "industryCategory",
-                "operator": "NOT_EMPTY"
-              }
-            },
-            "span": 12
-          }
-        },
-        {
-          "type": "Control",
-          "component": "Select",
-          "scope": "#/properties/positionJobTitle",
-          "label": "Position/Job title",
-          "options": {
-            "id": "employmentPositionJobTitle",
-            "placeholder": "Select position/job title",
-            "dataSource": {
-              "type": "reference",
-              "endpoint": "/api/v1/retrieve/positionJobTitle",
-              "valueKey": "code",
-              "displayKey": "desc"
-            },
-            "conditions": {
-              "visibility": {
-                "field": "industryCategory",
-                "operator": "NOT_EMPTY"
-              }
-            },
-            "span": 12
-          }
-        },
-        {
-          "type": "Control",
-          "component": "Select",
-          "scope": "#/properties/companyCategory",
-          "label": "Company category",
-          "options": {
-            "id": "employmentCompanyCategory",
-            "placeholder": "Select company category",
-            "dataSource": {
-              "type": "reference",
-              "endpoint": "/api/v1/retrieve/companyCategory",
-              "valueKey": "code",
-              "displayKey": "desc"
-            },
-            "conditions": {
-              "visibility": {
-                "field": "industryCategory",
-                "operator": "NOT_EMPTY"
-              }
-            },
-            "span": 12
-          }
-        },
-        {
-          "type": "Control",
-          "component": "Select",
-          "scope": "#/properties/employmentStatus",
-          "label": "Employment Status",
-          "options": {
-            "id": "employmentStatus",
-            "placeholder": "Select employment status",
-            "dataSource": {
-              "type": "reference",
-              "endpoint": "/api/v1/retrieve/employmentStatus",
-              "valueKey": "code",
-              "displayKey": "desc"
-            },
-            "conditions": {
-              "visibility": {
-                "field": "industryCategory",
-                "operator": "NOT_EMPTY"
-              }
-            },
-            "span": 12
-          }
-        },
-        {
-          "type": "Control",
-          "component": "TextInput",
-          "scope": "#/properties/officePhoneNumber",
-          "label": "Office phone number",
-          "options": {
-            "id": "employmentOfficePhoneNumber",
-            "keyboardType": "numeric",
-            "prefix": "+62",
-            "conditions": {
-              "visibility": {
-                "field": "industryCategory",
-                "operator": "NOT_EMPTY"
-              }
-            },
-            "span": 12
-          }
-        },
-        {
-          "type": "Control",
-          "component": "DatePicker",
-          "scope": "#/properties/dateJoined",
-          "label": "Date joined",
-          "options": {
-            "id": "employmentDateJoined",
-            "placeholder": "Select date joined",
-            "displayFormat": "dd MMM yyyy",
-            "valueFormat": "yyyy-MM-dd",
-            "conditions": {
-              "visibility": {
-                "field": "industryCategory",
-                "operator": "NOT_EMPTY"
-              }
-            },
-            "span": 12
-          }
-        },
-        {
-          "type": "Control",
-          "component": "TextInput",
-          "scope": "#/properties/officeAddress",
-          "label": "Office address",
-          "options": {
-            "id": "employmentOfficeAddress",
-            "placeholder": "Enter office address",
-            "keyboardType": "text",
-            "conditions": {
-              "visibility": {
-                "field": "industryCategory",
-                "operator": "NOT_EMPTY"
-              }
-            },
-            "span": 12
-          }
-        },
-        {
-          "type": "Control",
-          "component": "Select",
-          "scope": "#/properties/province",
-          "label": "Province",
-          "options": {
-            "id": "employmentProvince",
-            "placeholder": "Select province",
-            "dataSource": {
-              "type": "reference",
-              "endpoint": "/api/v1/retrieve/province",
-              "valueKey": "code",
-              "displayKey": "desc"
-            },
-            "conditions": {
-              "visibility": {
-                "field": "industryCategory",
-                "operator": "NOT_EMPTY"
-              }
-            },
-            "span": 12
-          }
-        },
-        {
-          "type": "Control",
-          "component": "Select",
-          "scope": "#/properties/city",
-          "label": "City/Regency",
-          "options": {
-            "id": "employmentCity",
-            "placeholder": "Select city/regency",
-            "dataSource": {
-              "type": "reference",
-              "endpoint": "/api/v1/retrieve/city",
-              "valueKey": "code",
-              "displayKey": "desc",
-              "dependencies": [
-                { "field": "employmentProvince", "param": "province" }
-              ]
-            },
-            "conditions": {
-              "visibility": {
-                "field": "industryCategory",
-                "operator": "NOT_EMPTY"
-              }
-            },
-            "span": 12
-          }
-        },
-        {
-          "type": "Control",
-          "component": "Select",
-          "scope": "#/properties/district",
-          "label": "District",
-          "options": {
-            "id": "employmentDistrict",
-            "placeholder": "Select district",
-            "dataSource": {
-              "type": "reference",
-              "endpoint": "/api/v1/retrieve/district",
-              "valueKey": "code",
-              "displayKey": "desc",
-              "dependencies": [
-                { "field": "employmentProvince", "param": "province" },
-                { "field": "employmentCity", "param": "city" }
-              ]
-            },
-            "conditions": {
-              "visibility": {
-                "field": "industryCategory",
-                "operator": "NOT_EMPTY"
-              }
-            },
-            "span": 12
-          }
-        },
-        {
-          "type": "Control",
-          "component": "Select",
-          "scope": "#/properties/subdistrict",
-          "label": "Sub-district/Village",
-          "options": {
-            "id": "employmentSubdistrict",
-            "placeholder": "Select sub-district/village",
-            "dataSource": {
-              "type": "reference",
-              "endpoint": "/api/v1/retrieve/subdistrict",
-              "valueKey": "code",
-              "displayKey": "desc",
-              "dependencies": [
-                { "field": "employmentProvince", "param": "province" },
-                { "field": "employmentCity", "param": "city" },
-                { "field": "employmentDistrict", "param": "district" }
-              ]
-            },
-            "conditions": {
-              "visibility": {
-                "field": "industryCategory",
-                "operator": "NOT_EMPTY"
-              }
-            },
-            "span": 12
-          }
-        },
-        {
-          "type": "Control",
-          "component": "TextInput",
-          "scope": "#/properties/addressRT",
-          "label": "RT",
-          "options": {
-            "id": "employmentAddressRT",
-            "placeholder": "Enter RT",
-            "keyboardType": "numeric",
-            "conditions": {
-              "visibility": {
-                "field": "industryCategory",
-                "operator": "NOT_EMPTY"
-              }
-            },
-            "span": 6
-          }
-        },
-        {
-          "type": "Control",
-          "component": "TextInput",
-          "scope": "#/properties/addressRW",
-          "label": "RW",
-          "options": {
-            "id": "employmentAddressRW",
-            "placeholder": "Enter RW",
-            "keyboardType": "numeric",
-            "conditions": {
-              "visibility": {
-                "field": "industryCategory",
-                "operator": "NOT_EMPTY"
-              }
-            },
-            "span": 6
-          }
-        },
-        {
-          "type": "Control",
-          "component": "Select",
-          "scope": "#/properties/postcode",
-          "label": "Postcode",
-          "options": {
-            "id": "employmentPostcode",
-            "dataSource": {
-              "type": "reference",
-              "endpoint": "/api/v1/retrieve/postcodes",
-              "valueKey": "code",
-              "displayKey": "desc",
-              "dependencies": [
-                { "field": "employmentProvince", "param": "province" },
-                { "field": "employmentCity", "param": "city" },
-                { "field": "employmentDistrict", "param": "district" },
-                { "field": "employmentSubdistrict", "param": "subdistrict" }
-              ]
-            },
-            "conditions": {
-              "visibility": {
-                "field": "industryCategory",
-                "operator": "NOT_EMPTY"
-              }
-            },
-            "span": 12
-          }
-        },
-        {
-          "type": "Control",
-          "component": "Checkbox",
-          "scope": "#/properties/declarationCheckbox",
-          "label": "I hereby declare that I have no relationship with any government/state officials, politicians or public figures",
-          "options": {
-            "id": "employmentDeclarationCheckbox",
-            "title": "Declaration:",
-            "span": 12
-          }
+        "footer": {
+            "type": "VerticalLayout",
+            "elements": [
+                {
+                    "type": "Control",
+                    "component": "Button",
+                    "options": {
+                        "items": [
+                            {
+                                "id": "nextButton",
+                                "label": "Next",
+                                "variant": "primary",
+                                "action": {
+                                    "type": "submit"
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
         }
-      ]
     },
-    "footer": {
-      "type": "VerticalLayout",
-      "elements": [
-        {
-          "type": "Control",
-          "component": "Button",
-          "options": {
-            "items": [
-              {
-                "id": "nextButton",
-                "label": "Next",
-                "variant": "primary",
-                "action": { "type": "submit" }
-              }
-            ]
-          }
-        }
-      ]
+    "data": {
+        "companyName": "",
+        "officePhoneNumber": "",
+        "officeAddress": "",
+        "addressRT": "",
+        "addressRW": ""
     }
-  },
-  "data": {
-    "occupation": null,
-    "industryCategory": null,
-    "companyName": "",
-    "positionJobTitle": null,
-    "companyCategory": null,
-    "employmentStatus": null,
-    "officePhoneNumber": "",
-    "dateJoined": "",
-    "officeAddress": "",
-    "province": null,
-    "city": null,
-    "district": null,
-    "subdistrict": null,
-    "addressRT": "",
-    "addressRW": "",
-    "postcode": null,
-    "declarationCheckbox": false
-  }
 }

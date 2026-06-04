@@ -1,133 +1,36 @@
 {
-  "screenId": "complete-form-example",
+  "screenId": "email_form",
   "version": 1,
   "schema": {
     "type": "object",
     "properties": {
-      "firstName": {
-        "type": "string",
-        "minLength": 2,
-        "maxLength": 50,
-        "messages": {
-          "required": "First name is required",
-          "minLength": "Minimum 2 characters"
-        }
-      },
-      "lastName": {
-        "type": "string",
-        "minLength": 2,
-        "maxLength": 50,
-        "messages": {
-          "required": "Last name is required"
-        }
-      },
       "emailAddress": {
-        "type": "string",
-        "minLength": 5,
+        "type": "email",
         "maxLength": 200,
         "messages": {
-          "required": "Email is required",
-          "email": "Enter a valid email address",
-          "minLength": "Email must be at least 5 characters",
-          "maxLength": "Email must be at most 200 characters"
+          "required": "Email address is required",
+          "email": "Please enter a valid email address"
         }
       },
-      "country": {
-        "type": "string",
+      "confirmEmailAddress": {
+        "type": "email",
+        "maxLength": 200,
         "messages": {
-          "required": "Please select a country"
+          "required": "Confirm email address is required",
+          "email": "Please enter a valid email address",
+          "matchField": "Email addresses do not match"
         },
-        "oneOf": [
+        "validations": [
           {
-            "const": "MY",
-            "title": "Malaysia"
-          },
-          {
-            "const": "SG",
-            "title": "Singapore"
-          },
-          {
-            "const": "TH",
-            "title": "Thailand"
-          },
-          {
-            "const": "ID",
-            "title": "Indonesia"
+            "type": "MATCH_FIELD",
+            "field": "emailAddress"
           }
         ]
-      },
-      "contactMethod": {
-        "type": "string",
-        "messages": {
-          "required": "Please select a contact method"
-        },
-        "oneOf": [
-          {
-            "const": "email",
-            "title": "Email"
-          },
-          {
-            "const": "phone",
-            "title": "Phone Call"
-          },
-          {
-            "const": "sms",
-            "title": "SMS"
-          }
-        ]
-      },
-      "phoneNumber": {
-        "type": "string"
-      },
-      "foreignId": {
-        "type": "string"
-      },
-      "areaCode": {},
-      "notifications": {
-        "type": "array",
-        "uniqueItems": true,
-        "items": {
-          "oneOf": [
-            {
-              "const": "news",
-              "title": "News & Updates"
-            },
-            {
-              "const": "promos",
-              "title": "Promotions"
-            },
-            {
-              "const": "reminders",
-              "title": "Reminders"
-            }
-          ]
-        }
-      },
-      "agreeToTerms": {
-        "messages": {
-          "required": "You must agree to the terms"
-        }
-      },
-      "promoCode": {
-        "type": "string"
-      },
-      "discountLevel": {},
-      "quantity": {},
-      "verificationPin": {
-        "messages": {
-          "required": "Verification PIN is required"
-        }
-      },
-      "supportingDocs": {}
+      }
     },
     "required": [
-      "firstName",
-      "lastName",
       "emailAddress",
-      "country",
-      "contactMethod",
-      "agreeToTerms",
-      "verificationPin"
+      "confirmEmailAddress"
     ]
   },
   "uiSchema": {
@@ -136,20 +39,32 @@
       "elements": [
         {
           "type": "Control",
-          "component": "TopNavigation",
+          "component": "NavigationHeader",
           "options": {
-            "id": "topNav",
-            "title": "Complete Form Example",
-            "disableSafeArea": false
+            "items": [
+              {
+                "id": "screenHeader",
+                "title": "Apply",
+                "subtitle": "",
+                "enableBackButton": true,
+                "enableCloseButton": true
+              }
+            ]
           }
         },
         {
           "type": "Control",
-          "component": "Typo",
+          "component": "ProgressIndicator",
           "options": {
-            "id": "screenTitle",
-            "value": "All Conditions Demo",
-            "textAlign": "center"
+            "items": [
+              {
+                "id": "progressBar",
+                "type": "stepper",
+                "currentStep": 1,
+                "totalSteps": 4,
+                "showStepText": true
+              }
+            ]
           }
         }
       ]
@@ -158,226 +73,54 @@
       "type": "VerticalLayout",
       "elements": [
         {
-          "type": "HorizontalLayout",
-          "elements": [
-            {
-              "type": "Control",
-              "component": "TextInput",
-              "options": {
-                "id": "firstName",
-                "placeholder": "Enter first name",
-                "disabled": false
+          "type": "Control",
+          "component": "Typo",
+          "options": {
+            "items": [
+              {
+                "id": "productName",
+                "variant": "body",
+                "value": "",
+                "valueSource": {
+                  "type": "binding",
+                  "path": "product.name"
+                }
               },
-              "label": "First Name"
-            },
-            {
-              "type": "Control",
-              "component": "TextInput",
-              "options": {
-                "id": "lastName",
-                "placeholder": "Enter last name",
-                "disabled": false
+              {
+                "id": "detailsTitle",
+                "variant": "title1",
+                "value": "Employment details"
               },
-              "label": "Last Name"
-            }
-          ]
+              {
+                "id": "detailsSubtitle",
+                "variant": "body",
+                "value": "Fill in your email address"
+              }
+            ]
+          }
         },
         {
           "type": "Control",
           "component": "TextInput",
+          "scope": "#/properties/emailAddress",
+          "label": "Email address",
           "options": {
             "id": "emailAddress",
-            "placeholder": "Enter your email",
-            "disabled": false
-          },
-          "label": "Email Address",
-          "dynamic": {
-            "id": 8,
-            "enabled": true,
-            "type": "VALUE",
-            "target": "defaultValue",
-            "source": {
-              "id": 8,
-              "type": "FACT",
-              "path": "userEmail",
-              "serviceCode": null
-            }
-          }
-        },
-        {
-          "type": "Control",
-          "component": "Dropdown",
-          "options": {
-            "id": "country",
-            "placeholder": "Select your country",
-            "disabled": false
-          },
-          "label": "Country"
-        },
-        {
-          "type": "Control",
-          "component": "RadioButton",
-          "options": {
-            "id": "contactMethod",
-            "groupDirection": "vertical",
-            "disabled": false
-          },
-          "label": "Preferred Contact Method"
-        },
-        {
-          "type": "Control",
-          "component": "TextInput",
-          "options": {
-            "id": "phoneNumber",
-            "placeholder": "+60 12 345 6789",
-            "disabled": false
-          },
-          "label": "Phone Number",
-          "dependsOn": [
-            "contactMethod"
-          ],
-          "rule": {
-            "effect": "SHOW",
-            "condition": {
-              "scope": "#/properties/contactMethod",
-              "schema": {
-                "const": "phone"
-              }
-            }
+            "placeholder": "Enter email address",
+            "keyboardType": "email",
+            "span": 12
           }
         },
         {
           "type": "Control",
           "component": "TextInput",
+          "scope": "#/properties/confirmEmailAddress",
+          "label": "Confirm email address",
           "options": {
-            "id": "foreignId",
-            "placeholder": "Enter foreign identification number",
-            "disabled": false
-          },
-          "label": "Foreign ID Number",
-          "rule": {
-            "effect": "HIDE",
-            "condition": {
-              "scope": "#/properties/country",
-              "schema": {
-                "const": "MY"
-              }
-            }
-          }
-        },
-        {
-          "type": "Control",
-          "component": "SearchInput",
-          "options": {
-            "id": "areaCode",
-            "placeholder": "Search area code",
-            "disabled": false
-          },
-          "rule": {
-            "effect": "SHOW",
-            "condition": {
-              "scope": "#/properties/contactMethod",
-              "schema": {
-                "enum": [
-                  "phone",
-                  "sms"
-                ]
-              }
-            }
-          }
-        },
-        {
-          "type": "Control",
-          "component": "Checkbox",
-          "options": {
-            "id": "notifications",
-            "disabled": false
-          },
-          "label": "Notification Preferences"
-        },
-        {
-          "type": "Control",
-          "component": "Toggle",
-          "options": {
-            "id": "agreeToTerms",
-            "size": "md",
-            "disabled": false
-          }
-        },
-        {
-          "type": "Control",
-          "component": "TextInput",
-          "options": {
-            "id": "promoCode",
-            "placeholder": "Enter promo code (optional)",
-            "disabled": false
-          },
-          "label": "Promo Code",
-          "dependsOn": [
-            "agreeToTerms"
-          ],
-          "rule": {
-            "effect": "ENABLE",
-            "condition": {
-              "scope": "#/properties/agreeToTerms",
-              "schema": {
-                "const": true
-              }
-            }
-          }
-        },
-        {
-          "type": "Control",
-          "component": "Slider",
-          "options": {
-            "id": "discountLevel",
-            "min": 0,
-            "max": 100,
-            "step": 10
-          },
-          "label": "Discount Level (%)",
-          "rule": {
-            "effect": "DISABLE",
-            "condition": {
-              "scope": "#/properties/agreeToTerms",
-              "schema": {
-                "const": false
-              }
-            }
-          }
-        },
-        {
-          "type": "Control",
-          "component": "NumberInputStepper",
-          "options": {
-            "id": "quantity",
-            "min": 1,
-            "max": 99,
-            "step": 1,
-            "editable": true
-          },
-          "label": "Quantity"
-        },
-        {
-          "type": "Control",
-          "component": "PinInput",
-          "options": {
-            "id": "verificationPin",
-            "numberOfDigits": 6,
-            "inputMode": "numeric",
-            "secureTextEntry": false,
-            "autoFocus": false
-          }
-        },
-        {
-          "type": "Control",
-          "component": "Uploader",
-          "options": {
-            "id": "supportingDocs",
-            "maxFiles": 3,
-            "maxFileSizeBytes": 5242880,
-            "autoUpload": false,
-            "disabled": false
+            "id": "confirmEmailAddress",
+            "placeholder": "Re-enter email address",
+            "keyboardType": "email",
+            "span": 12
           }
         }
       ]
@@ -389,32 +132,65 @@
           "type": "Control",
           "component": "Button",
           "options": {
-            "id": "submitButton",
-            "variant": "primary",
-            "size": "lg",
-            "disabled": false,
-            "loading": false
-          },
-          "label": "Submit"
+            "items": [
+              {
+                "id": "nextButton",
+                "label": "Next",
+                "variant": "primary",
+                "action": {
+                  "type": "submit"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Divider",
+          "options": {
+            "items": [
+              {
+                "id": "footerDivider",
+                "label": "Or continue with an account"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Button",
+          "options": {
+            "items": [
+              {
+                "id": "googleAccountButton",
+                "label": "Continue with Google",
+                "variant": "secondary",
+                "iconName": "googleLogo",
+                "iconPosition": "left",
+                "action": {
+                  "type": "navigate",
+                  "target": "GoogleAuthMFE"
+                }
+              },
+              {
+                "id": "appleAccountButton",
+                "label": "Continue with Apple",
+                "variant": "secondary",
+                "iconName": "appleLogo",
+                "iconPosition": "left",
+                "action": {
+                  "type": "navigate",
+                  "target": "AppleAuthMFE"
+                }
+              }
+            ]
+          }
         }
       ]
     }
   },
   "data": {
-    "firstName": "",
-    "lastName": "",
     "emailAddress": "",
-    "country": "",
-    "contactMethod": "",
-    "phoneNumber": "",
-    "foreignId": "",
-    "areaCode": "",
-    "notifications": [],
-    "agreeToTerms": "",
-    "promoCode": "",
-    "discountLevel": "",
-    "quantity": "",
-    "verificationPin": "",
-    "supportingDocs": ""
+    "confirmEmailAddress": ""
   }
 }

@@ -2,73 +2,76 @@
     "screenId": "e-ktp_details_form",
     "version": 1,
     "schema": {
-        "idNumber": {
-            "required": true,
-            "type": "text",
-            "minLength": 16,
-            "maxLength": 16,
-            "pattern": "^[0-9]{16}$",
-            "messages": {
-                "required": "E-KTP number is required",
-                "minLength": "E-KTP number must be exactly 16 digits",
-                "maxLength": "E-KTP number must be exactly 16 digits",
-                "pattern": "E-KTP number must be exactly 16 digits"
+        "type": "object",
+        "properties": {
+            "idNumber": {
+                "type": "text",
+                "minLength": 16,
+                "maxLength": 16,
+                "pattern": "^[0-9]{16}$",
+                "messages": {
+                    "required": "E-KTP number is required",
+                    "minLength": "E-KTP number must be exactly 16 digits",
+                    "maxLength": "E-KTP number must be exactly 16 digits",
+                    "pattern": "E-KTP number must be exactly 16 digits"
+                }
+            },
+            "name": {
+                "type": "text",
+                "maxLength": 200,
+                "messages": {
+                    "required": "E-KTP name is required",
+                    "maxLength": "Name must be at most 200 characters"
+                }
+            },
+            "placeOfBirth": {
+                "type": "text",
+                "maxLength": 80,
+                "messages": {
+                    "required": "Place of birth is required",
+                    "maxLength": "Place of birth must be at most 80 characters"
+                }
+            },
+            "mothersMaidenName": {
+                "type": "text",
+                "maxLength": 200,
+                "messages": {
+                    "required": "Mother's maiden name is required",
+                    "maxLength": "Mother's maiden name must be at most 200 characters"
+                }
+            },
+            "address": {
+                "type": "text",
+                "maxLength": 300,
+                "messages": {
+                    "required": "Address is required",
+                    "maxLength": "Address must be at most 300 characters"
+                }
+            },
+            "addressRT": {
+                "type": "text",
+                "maxLength": 3,
+                "pattern": "^[0-9]{1,3}$",
+                "messages": {
+                    "pattern": "RT must be 1-3 digits (numbers only)"
+                }
+            },
+            "addressRW": {
+                "type": "text",
+                "maxLength": 3,
+                "pattern": "^[0-9]{1,3}$",
+                "messages": {
+                    "pattern": "RW must be 1-3 digits (numbers only)"
+                }
             }
         },
-        "name": {
-            "required": true,
-            "type": "text",
-            "maxLength": 200,
-            "messages": {
-                "required": "E-KTP name is required",
-                "maxLength": "Name must be at most 200 characters"
-            }
-        },
-        "placeOfBirth": {
-            "required": true,
-            "type": "text",
-            "maxLength": 80,
-            "messages": {
-                "required": "Place of birth is required",
-                "maxLength": "Place of birth must be at most 80 characters"
-            }
-        },
-        "mothersMaidenName": {
-            "required": true,
-            "type": "text",
-            "maxLength": 200,
-            "messages": {
-                "required": "Mother's maiden name is required",
-                "maxLength": "Mother's maiden name must be at most 200 characters"
-            }
-        },
-        "address": {
-            "required": true,
-            "type": "text",
-            "maxLength": 300,
-            "messages": {
-                "required": "Address is required",
-                "maxLength": "Address must be at most 300 characters"
-            }
-        },
-        "addressRT": {
-            "required": false,
-            "type": "text",
-            "maxLength": 3,
-            "pattern": "^[0-9]{1,3}$",
-            "messages": {
-                "pattern": "RT must be 1-3 digits (numbers only)"
-            }
-        },
-        "addressRW": {
-            "required": false,
-            "type": "text",
-            "maxLength": 3,
-            "pattern": "^[0-9]{1,3}$",
-            "messages": {
-                "pattern": "RW must be 1-3 digits (numbers only)"
-            }
-        }
+        "required": [
+            "idNumber",
+            "name",
+            "placeOfBirth",
+            "mothersMaidenName",
+            "address"
+        ]
     },
     "uiSchema": {
         "header": {

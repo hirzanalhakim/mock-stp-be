@@ -1,7 +1,11 @@
 {
   "screenId": "applySubmitted",
   "version": 1,
-  "schema": {},
+  "schema": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  },
   "uiSchema": {
     "header": {
       "type": "VerticalLayout",

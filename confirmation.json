@@ -14,15 +14,11 @@
           "type": "Control",
           "component": "NavigationHeader",
           "options": {
-            "items": [
-              {
-                "id": "screenHeader",
-                "title": "Confirmation",
-                "subtitle": "",
-                "enableBackButton": true,
-                "enableCloseButton": true
-              }
-            ]
+            "id": "screenHeader",
+            "title": "Confirmation",
+            "subtitle": "",
+            "enableBackButton": true,
+            "enableCloseButton": true
           }
         }
       ]
@@ -34,13 +30,9 @@
           "type": "Control",
           "component": "Typo",
           "options": {
-            "items": [
-              {
-                "id": "applyFor",
-                "variant": "body",
-                "value": "Apply for"
-              }
-            ]
+            "id": "applyFor",
+            "variant": "body",
+            "value": "Apply for"
           }
         },
         {
@@ -69,21 +61,17 @@
         {
           "type": "Control",
           "component": "Button",
+          "label": "Apply redemption code",
           "options": {
-            "items": [
-              {
-                "id": "redeemCodeButton",
-                "label": "Apply redemption code",
-                "variant": "promo",
-                "iconName": "promoTicket",
-                "iconPosition": "left",
-                "placement": {
-                  "horizontal": "center",
-                  "vertical": "inline"
-                },
-                "action": { "type": "APPLY_PROMO" }
-              }
-            ]
+            "id": "redeemCodeButton",
+            "variant": "promo",
+            "iconName": "promoTicket",
+            "iconPosition": "left",
+            "placement": {
+              "horizontal": "center",
+              "vertical": "inline"
+            },
+            "action": { "type": "APPLY_PROMO" }
           }
         },
         {
@@ -292,15 +280,11 @@
         {
           "type": "Control",
           "component": "Button",
+          "label": "Confirm",
           "options": {
-            "items": [
-              {
-                "id": "nextButton",
-                "label": "Confirm",
-                "variant": "primary",
-                "action": { "type": "CONFIRM_APPLY" }
-              }
-            ]
+            "id": "nextButton",
+            "variant": "primary",
+            "action": { "type": "CONFIRM_APPLY" }
           }
         }
       ]

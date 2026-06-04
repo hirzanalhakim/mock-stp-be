@@ -34,28 +34,28 @@
           "type": "Control",
           "component": "Typo",
           "options": {
-            "items": [
-              {
-                "id": "submittedTitle",
-                "variant": "title1",
-                "value": "Application in progress",
-                "placement": {
-                  "horizontal": "center"
-                }
-              },
-              {
-                "id": "submittedApplyTime",
-                "variant": "body",
-                "value": "",
-                "placement": {
-                  "horizontal": "center"
-                },
-                "valueSource": {
-                  "type": "binding",
-                  "path": "apply.time"
-                }
-              }
-            ]
+            "id": "submittedTitle",
+            "variant": "title1",
+            "value": "Application in progress",
+            "placement": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Typo",
+          "options": {
+            "id": "submittedApplyTime",
+            "variant": "body",
+            "value": "",
+            "placement": {
+              "horizontal": "center"
+            },
+            "valueSource": {
+              "type": "binding",
+              "path": "apply.time"
+            }
           }
         },
         {
@@ -92,17 +92,13 @@
           "type": "Control",
           "component": "Typo",
           "options": {
-            "items": [
-              {
-                "id": "submittedNote",
-                "variant": "note",
-                "title": "Note:",
-                "value": "Your account will be activated once the data verification is successful. A confirmation email will be sent to you after the process is completed.",
-                "placement": {
-                  "horizontal": "center"
-                }
-              }
-            ]
+            "id": "submittedNote",
+            "variant": "note",
+            "title": "Note:",
+            "value": "Your account will be activated once the data verification is successful. A confirmation email will be sent to you after the process is completed.",
+            "placement": {
+              "horizontal": "center"
+            }
           }
         }
       ]
@@ -113,15 +109,11 @@
         {
           "type": "Control",
           "component": "Button",
+          "label": "Done",
           "options": {
-            "items": [
-              {
-                "id": "doneButton",
-                "label": "Done",
-                "variant": "primary",
-                "action": { "type": "submit" }
-              }
-            ]
+            "id": "doneButton",
+            "variant": "primary",
+            "action": { "type": "submit" }
           }
         }
       ]

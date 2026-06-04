@@ -59,30 +59,22 @@
           "type": "Control",
           "component": "NavigationHeader",
           "options": {
-            "items": [
-              {
-                "id": "screenHeader",
-                "title": "Apply",
-                "subtitle": "",
-                "enableBackButton": true,
-                "enableCloseButton": true
-              }
-            ]
+            "id": "screenHeader",
+            "title": "Apply",
+            "subtitle": "",
+            "enableBackButton": true,
+            "enableCloseButton": true
           }
         },
         {
           "type": "Control",
           "component": "ProgressIndicator",
           "options": {
-            "items": [
-              {
-                "id": "progressBar",
-                "type": "stepper",
-                "currentStep": 3,
-                "totalSteps": 4,
-                "showStepText": true
-              }
-            ]
+            "id": "progressBar",
+            "type": "stepper",
+            "currentStep": 3,
+            "totalSteps": 4,
+            "showStepText": true
           }
         }
       ]
@@ -94,22 +86,22 @@
           "type": "Control",
           "component": "Typo",
           "options": {
-            "items": [
-              {
-                "id": "productName",
-                "variant": "body",
-                "value": "",
-                "valueSource": {
-                  "type": "binding",
-                  "path": "product.name"
-                }
-              },
-              {
-                "id": "detailsTitle",
-                "variant": "title1",
-                "value": "Employment details"
-              }
-            ]
+            "id": "productName",
+            "variant": "body",
+            "value": "",
+            "valueSource": {
+              "type": "binding",
+              "path": "product.name"
+            }
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Typo",
+          "options": {
+            "id": "detailsTitle",
+            "variant": "title1",
+            "value": "Employment details"
           }
         },
         {
@@ -210,17 +202,13 @@
         {
           "type": "Control",
           "component": "Button",
+          "label": "Next",
           "options": {
-            "items": [
-              {
-                "id": "nextButton",
-                "label": "Next",
-                "variant": "primary",
-                "action": {
-                  "type": "submit"
-                }
-              }
-            ]
+            "id": "nextButton",
+            "variant": "primary",
+            "action": {
+              "type": "submit"
+            }
           }
         }
       ]

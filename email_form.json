@@ -41,30 +41,22 @@
           "type": "Control",
           "component": "NavigationHeader",
           "options": {
-            "items": [
-              {
-                "id": "screenHeader",
-                "title": "Apply",
-                "subtitle": "",
-                "enableBackButton": true,
-                "enableCloseButton": true
-              }
-            ]
+            "id": "screenHeader",
+            "title": "Apply",
+            "subtitle": "",
+            "enableBackButton": true,
+            "enableCloseButton": true
           }
         },
         {
           "type": "Control",
           "component": "ProgressIndicator",
           "options": {
-            "items": [
-              {
-                "id": "progressBar",
-                "type": "stepper",
-                "currentStep": 1,
-                "totalSteps": 4,
-                "showStepText": true
-              }
-            ]
+            "id": "progressBar",
+            "type": "stepper",
+            "currentStep": 1,
+            "totalSteps": 4,
+            "showStepText": true
           }
         }
       ]
@@ -76,27 +68,31 @@
           "type": "Control",
           "component": "Typo",
           "options": {
-            "items": [
-              {
-                "id": "productName",
-                "variant": "body",
-                "value": "",
-                "valueSource": {
-                  "type": "binding",
-                  "path": "product.name"
-                }
-              },
-              {
-                "id": "detailsTitle",
-                "variant": "title1",
-                "value": "Employment details"
-              },
-              {
-                "id": "detailsSubtitle",
-                "variant": "body",
-                "value": "Fill in your email address"
-              }
-            ]
+            "id": "productName",
+            "variant": "body",
+            "value": "",
+            "valueSource": {
+              "type": "binding",
+              "path": "product.name"
+            }
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Typo",
+          "options": {
+            "id": "detailsTitle",
+            "variant": "title1",
+            "value": "Employment details"
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Typo",
+          "options": {
+            "id": "detailsSubtitle",
+            "variant": "body",
+            "value": "Fill in your email address"
           }
         },
         {
@@ -131,59 +127,51 @@
         {
           "type": "Control",
           "component": "Button",
+          "label": "Next",
           "options": {
-            "items": [
-              {
-                "id": "nextButton",
-                "label": "Next",
-                "variant": "primary",
-                "action": {
-                  "type": "submit"
-                }
-              }
-            ]
+            "id": "nextButton",
+            "variant": "primary",
+            "action": {
+              "type": "submit"
+            }
           }
         },
         {
           "type": "Control",
           "component": "Divider",
+          "label": "Or continue with an account",
           "options": {
-            "items": [
-              {
-                "id": "footerDivider",
-                "label": "Or continue with an account"
-              }
-            ]
+            "id": "footerDivider"
           }
         },
         {
           "type": "Control",
           "component": "Button",
+          "label": "Continue with Google",
           "options": {
-            "items": [
-              {
-                "id": "googleAccountButton",
-                "label": "Continue with Google",
-                "variant": "secondary",
-                "iconName": "googleLogo",
-                "iconPosition": "left",
-                "action": {
-                  "type": "navigate",
-                  "target": "GoogleAuthMFE"
-                }
-              },
-              {
-                "id": "appleAccountButton",
-                "label": "Continue with Apple",
-                "variant": "secondary",
-                "iconName": "appleLogo",
-                "iconPosition": "left",
-                "action": {
-                  "type": "navigate",
-                  "target": "AppleAuthMFE"
-                }
-              }
-            ]
+            "id": "googleAccountButton",
+            "variant": "secondary",
+            "iconName": "googleLogo",
+            "iconPosition": "left",
+            "action": {
+              "type": "navigate",
+              "target": "GoogleAuthMFE"
+            }
+          }
+        },
+        {
+          "type": "Control",
+          "component": "Button",
+          "label": "Continue with Apple",
+          "options": {
+            "id": "appleAccountButton",
+            "variant": "secondary",
+            "iconName": "appleLogo",
+            "iconPosition": "left",
+            "action": {
+              "type": "navigate",
+              "target": "AppleAuthMFE"
+            }
           }
         }
       ]

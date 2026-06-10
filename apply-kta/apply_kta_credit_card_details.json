@@ -1,0 +1,893 @@
+{
+  "screenId": "apply_kta_credit_card_details",
+  "version": 1,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "productName": {
+        "type": "string"
+      },
+      "creditCardStep": {
+        "type": "string",
+        "oneOf": [
+          {
+            "const": "ownership",
+            "title": "Ownership"
+          },
+          {
+            "const": "scan_intro",
+            "title": "Scan intro"
+          },
+          {
+            "const": "scan_review",
+            "title": "Scan review"
+          }
+        ]
+      },
+      "hasActiveCreditCard": {
+        "type": "string",
+        "oneOf": [
+          {
+            "const": "yes",
+            "title": "Yes"
+          },
+          {
+            "const": "no",
+            "title": "No"
+          }
+        ],
+        "messages": {
+          "required": "Please choose one option"
+        }
+      },
+      "issuingBank": {
+        "type": "string",
+        "oneOf": [
+          {
+            "const": "Bank BNP Paribas Indonesia",
+            "title": "Bank BNP Paribas Indonesia"
+          },
+          {
+            "const": "Bank Bukopin",
+            "title": "Bank Bukopin"
+          },
+          {
+            "const": "Bank BTPN",
+            "title": "Bank BTPN"
+          },
+          {
+            "const": "Bank Central Asia (BCA)",
+            "title": "Bank Central Asia (BCA)"
+          },
+          {
+            "const": "Bank of China",
+            "title": "Bank of China"
+          },
+          {
+            "const": "Bank CIMB Niaga",
+            "title": "Bank CIMB Niaga"
+          },
+          {
+            "const": "Bank OCBC NISP",
+            "title": "Bank OCBC NISP"
+          }
+        ]
+      },
+      "issuingBankSearch": {
+        "type": "string"
+      },
+      "creditFacilities": {
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+          "oneOf": [
+            {
+              "const": "unsecured_loan",
+              "title": "Unsecured loan"
+            },
+            {
+              "const": "business_loan",
+              "title": "Business loan"
+            },
+            {
+              "const": "home_ownership_loan",
+              "title": "Home ownership loan"
+            },
+            {
+              "const": "vehicle_loan",
+              "title": "Vehicle loan"
+            }
+          ]
+        }
+      },
+      "capturedCreditCardImageUrl": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "hasActiveCreditCard"
+    ]
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "TopNavigation",
+          "options": {
+            "id": "properties.topNav",
+            "title": "Apply",
+            "disableSafeArea": false,
+            "action": {
+              "type": "open_modal",
+              "payload": {
+                "target": "confirmLeave"
+              }
+            }
+          }
+        },
+        {
+          "component": "BarProgressIndicator",
+          "options": {
+            "id": "properties.progress",
+            "type": "steppers",
+            "progress": 50,
+            "currentStep": 4,
+            "totalSteps": 8
+          }
+        }
+      ]
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.productNameOwnership",
+            "variant": "body",
+            "valueSource": {
+              "type": "binding",
+              "path": "productName"
+            }
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "ownership"
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.ownershipTitle",
+            "variant": "title1",
+            "value": "Credit card ownership"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "ownership"
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.activeCreditCardLabel",
+            "variant": "subhead",
+            "value": "Do you have an active credit card with another bank?"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "ownership"
+              }
+            }
+          }
+        },
+        {
+          "component": "RadioButton",
+          "options": {
+            "id": "properties.hasActiveCreditCard",
+            "groupDirection": "horizontal",
+            "disabled": false
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "ownership"
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.issuingBankLabel",
+            "variant": "subhead",
+            "value": "Name of issuing bank"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasActiveCreditCard",
+              "schema": {
+                "const": "yes"
+              }
+            }
+          }
+        },
+        {
+          "component": "Dropdown",
+          "options": {
+            "id": "properties.issuingBank",
+            "placeholder": "Select issuing bank",
+            "disabled": false,
+            "value": "Bank OCBC NISP",
+            "action": {
+              "type": "OPEN_BOTTOM_SHEET",
+              "target": "select_issuing_bank_drawer"
+            }
+          },
+          "label": "Name of issuing bank",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasActiveCreditCard",
+              "schema": {
+                "const": "yes"
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.creditFacilitiesLabel",
+            "variant": "subhead",
+            "value": "Are you currently using other credit facilities? (Optional)"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasActiveCreditCard",
+              "schema": {
+                "const": "yes"
+              }
+            }
+          }
+        },
+        {
+          "component": "Checkbox",
+          "options": {
+            "id": "properties.creditFacilities",
+            "disabled": false
+          },
+          "label": "Credit facilities",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasActiveCreditCard",
+              "schema": {
+                "const": "yes"
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.productNameScanIntro",
+            "variant": "body",
+            "valueSource": {
+              "type": "binding",
+              "path": "productName"
+            }
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "scan_intro"
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.scanTitleIntro",
+            "variant": "title1",
+            "value": "Scan your credit card"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "scan_intro"
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.scanDescriptionIntro",
+            "variant": "body",
+            "value": "Your current credit card number is required for this loan application."
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "scan_intro"
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.scanInstruction1",
+            "variant": "body",
+            "value": "Take a photo of your physical credit card."
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "scan_intro"
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.scanInstruction2",
+            "variant": "body",
+            "value": "Position your card within the frame. Ensure the card number is clear and fully visible."
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "scan_intro"
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.productNameScanReview",
+            "variant": "body",
+            "valueSource": {
+              "type": "binding",
+              "path": "productName"
+            }
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "scan_review"
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.scanTitleReview",
+            "variant": "title1",
+            "value": "Scan your credit card"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "scan_review"
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.scanDescriptionReview",
+            "variant": "body",
+            "value": "Your current credit card number is required for this loan application."
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "scan_review"
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.creditCardUploadLabel",
+            "variant": "subhead",
+            "value": "Credit card upload"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "scan_review"
+              }
+            }
+          }
+        },
+        {
+          "component": "Image",
+          "options": {
+            "id": "properties.capturedCreditCardImage",
+            "label": "Uploaded credit card",
+            "valueSource": {
+              "type": "binding",
+              "path": "capturedCreditCardImageUrl"
+            },
+            "span": 12
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "scan_review"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.ownershipNextButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "OPEN_CREDIT_CARD_SCAN_STEP",
+              "payload": {
+                "data": {
+                  "creditCardStep": "scan_intro"
+                }
+              }
+            }
+          },
+          "label": "Next",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "ownership"
+              }
+            }
+          }
+        },
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.scanOpenCameraButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "open_modal",
+              "payload": {
+                "target": "cameraCapture"
+              }
+            }
+          },
+          "label": "Next",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "scan_intro"
+              }
+            }
+          }
+        },
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.scanSubmitButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "submit"
+            }
+          },
+          "label": "Next",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "scan_review"
+              }
+            }
+          }
+        },
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.retakeButton",
+            "variant": "secondary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "open_modal",
+              "payload": {
+                "target": "cameraCapture"
+              }
+            }
+          },
+          "label": "Retake",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/creditCardStep",
+              "schema": {
+                "const": "scan_review"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "overlay": {
+      "select_issuing_bank_drawer": {
+        "type": "bottom-sheet",
+        "options": {
+          "id": "properties.selectIssuingBankDrawer",
+          "snapPoints": [
+            "80%"
+          ],
+          "enablePanDownToClose": true,
+          "enableBackdrop": true,
+          "backdropPressBehavior": "close"
+        },
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "BottomDrawerHeader",
+              "options": {
+                "id": "properties.selectIssuingBankHeader",
+                "title": "Select issuing bank",
+                "showCloseButton": true
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "SearchInput",
+              "options": {
+                "id": "properties.issuingBankSearch",
+                "placeholder": "Search",
+                "disabled": false,
+                "showClear": true
+              }
+            },
+            {
+              "component": "ListNavigation",
+              "options": {
+                "id": "properties.issuingBankOptions",
+                "items": [
+                  {
+                    "id": "bank-bnp",
+                    "title": "Bank BNP Paribas Indonesia",
+                    "type": "drawer",
+                    "state": "default",
+                    "showMedia": true,
+                    "media": {
+                      "type": "avatar",
+                      "fallbackText": "BNP"
+                    },
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "issuingBank",
+                      "value": "Bank BNP Paribas Indonesia",
+                      "closeTarget": "select_issuing_bank_drawer"
+                    }
+                  },
+                  {
+                    "id": "bank-bukopin",
+                    "title": "Bank Bukopin",
+                    "type": "drawer",
+                    "state": "default",
+                    "showMedia": true,
+                    "media": {
+                      "type": "avatar",
+                      "fallbackText": "BB"
+                    },
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "issuingBank",
+                      "value": "Bank Bukopin",
+                      "closeTarget": "select_issuing_bank_drawer"
+                    }
+                  },
+                  {
+                    "id": "bank-btpn",
+                    "title": "Bank BTPN",
+                    "type": "drawer",
+                    "state": "default",
+                    "showMedia": true,
+                    "media": {
+                      "type": "avatar",
+                      "fallbackText": "BTPN"
+                    },
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "issuingBank",
+                      "value": "Bank BTPN",
+                      "closeTarget": "select_issuing_bank_drawer"
+                    }
+                  },
+                  {
+                    "id": "bank-bca",
+                    "title": "Bank Central Asia (BCA)",
+                    "type": "drawer",
+                    "state": "default",
+                    "showMedia": true,
+                    "media": {
+                      "type": "avatar",
+                      "fallbackText": "BCA"
+                    },
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "issuingBank",
+                      "value": "Bank Central Asia (BCA)",
+                      "closeTarget": "select_issuing_bank_drawer"
+                    }
+                  },
+                  {
+                    "id": "bank-boc",
+                    "title": "Bank of China",
+                    "type": "drawer",
+                    "state": "default",
+                    "showMedia": true,
+                    "media": {
+                      "type": "avatar",
+                      "fallbackText": "BOC"
+                    },
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "issuingBank",
+                      "value": "Bank of China",
+                      "closeTarget": "select_issuing_bank_drawer"
+                    }
+                  },
+                  {
+                    "id": "bank-cimb",
+                    "title": "Bank CIMB Niaga",
+                    "type": "drawer",
+                    "state": "default",
+                    "showMedia": true,
+                    "media": {
+                      "type": "avatar",
+                      "fallbackText": "CIMB"
+                    },
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "issuingBank",
+                      "value": "Bank CIMB Niaga",
+                      "closeTarget": "select_issuing_bank_drawer"
+                    }
+                  },
+                  {
+                    "id": "bank-ocbc",
+                    "title": "Bank OCBC NISP",
+                    "type": "drawer",
+                    "state": "default",
+                    "showMedia": true,
+                    "media": {
+                      "type": "avatar",
+                      "fallbackText": "OCBC"
+                    },
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "issuingBank",
+                      "value": "Bank OCBC NISP",
+                      "closeTarget": "select_issuing_bank_drawer"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "cameraCapture": {
+        "type": "modal",
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "TopNavigation",
+              "options": {
+                "id": "properties.cameraTopNav",
+                "title": "",
+                "disableSafeArea": true,
+                "action": {
+                  "type": "close_modal"
+                }
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "CameraCapture",
+              "options": {
+                "id": "properties.creditCardCameraCapture",
+                "instructionText": "Please ensure all information is visible in the frame.",
+                "aspectRatio": "card",
+                "captureMode": "document",
+                "documentType": "credit-card"
+              }
+            }
+          ]
+        },
+        "footer": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Button",
+              "options": {
+                "id": "properties.captureCreditCardButton",
+                "variant": "primary",
+                "size": "lg",
+                "disabled": false,
+                "loading": false,
+                "action": {
+                  "type": "CAPTURE_CREDIT_CARD",
+                  "payload": {
+                    "closeModal": true,
+                    "data": {
+                      "creditCardStep": "scan_review",
+                      "capturedCreditCardImageUrl": "https://mock-stp-be.vercel.app/mock-assets/credit-card-captured.png"
+                    }
+                  }
+                }
+              },
+              "label": "Capture"
+            }
+          ]
+        }
+      },
+      "confirmLeave": {
+        "type": "modal",
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveTitle",
+                "variant": "title3",
+                "value": "Cancel application?",
+                "textAlign": "center",
+                "weight": "bold"
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveBody",
+                "variant": "body",
+                "value": "Your progress will not be saved. Are you sure you want to cancel?",
+                "textAlign": "center"
+              }
+            }
+          ]
+        },
+        "footer": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveYes",
+                    "variant": "destructive",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "navigate",
+                      "payload": {
+                        "target": "home"
+                      }
+                    }
+                  },
+                  "label": "Yes, cancel"
+                },
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveNo",
+                    "variant": "secondary",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "close_modal"
+                    }
+                  },
+                  "label": "Go back"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "data": {
+    "productName": "<Product name>",
+    "creditCardStep": "ownership",
+    "hasActiveCreditCard": "yes",
+    "issuingBank": "Bank OCBC NISP",
+    "issuingBankSearch": "",
+    "creditFacilities": [
+      "unsecured_loan",
+      "home_ownership_loan"
+    ],
+    "capturedCreditCardImageUrl": ""
+  }
+}

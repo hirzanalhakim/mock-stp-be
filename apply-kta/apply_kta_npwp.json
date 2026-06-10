@@ -1,0 +1,363 @@
+{
+  "screenId": "apply_kta_npwp",
+  "version": 1,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "productName": {
+        "type": "string"
+      },
+      "hasSameNpwpAsEktp": {
+        "type": "string",
+        "oneOf": [
+          {
+            "const": "yes",
+            "title": "Yes"
+          },
+          {
+            "const": "no",
+            "title": "No"
+          }
+        ],
+        "messages": {
+          "required": "Please choose one option"
+        }
+      },
+      "npwpNumber": {
+        "type": "string",
+        "messages": {
+          "required": "NPWP number is required"
+        }
+      },
+      "npwpDocuments": {},
+      "npwpUploadCountLabel": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "hasSameNpwpAsEktp"
+    ]
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "TopNavigation",
+          "options": {
+            "id": "properties.topNav",
+            "title": "Apply",
+            "disableSafeArea": false,
+            "action": {
+              "type": "open_modal",
+              "payload": {
+                "target": "confirmLeave"
+              }
+            }
+          }
+        },
+        {
+          "component": "BarProgressIndicator",
+          "options": {
+            "id": "properties.progress",
+            "type": "steppers",
+            "progress": 38,
+            "currentStep": 3,
+            "totalSteps": 8
+          }
+        }
+      ]
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.productName",
+            "variant": "body",
+            "valueSource": {
+              "type": "binding",
+              "path": "productName"
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.screenTitle",
+            "variant": "title1",
+            "value": "Add your NPWP card"
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.sameNpwpLabel",
+            "variant": "subhead",
+            "value": "Does your NPWP have the same number as your e-KTP?"
+          }
+        },
+        {
+          "component": "RadioButton",
+          "options": {
+            "id": "properties.hasSameNpwpAsEktp",
+            "groupDirection": "horizontal",
+            "disabled": false
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.npwpNumberLabel",
+            "variant": "subhead",
+            "value": "e-KTP number"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasSameNpwpAsEktp",
+              "schema": {
+                "const": "yes"
+              }
+            }
+          }
+        },
+        {
+          "component": "TextInput",
+          "options": {
+            "id": "properties.npwpNumber",
+            "placeholder": "3673 0116 0793 1145",
+            "disabled": false
+          },
+          "label": "e-KTP number",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasSameNpwpAsEktp",
+              "schema": {
+                "const": "yes"
+              }
+            }
+          }
+        },
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.uploadNpwpLabel",
+                "variant": "subhead",
+                "value": "Upload your NPWP"
+              }
+            },
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.npwpUploadCountLabel",
+                "variant": "caption",
+                "valueSource": {
+                  "type": "binding",
+                  "path": "npwpUploadCountLabel"
+                }
+              }
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasSameNpwpAsEktp",
+              "schema": {
+                "const": "no"
+              }
+            }
+          }
+        },
+        {
+          "component": "Uploader",
+          "options": {
+            "id": "properties.npwpDocuments",
+            "maxFiles": 1,
+            "maxFileSizeBytes": 2097152,
+            "autoUpload": false,
+            "disabled": false,
+            "locale": "en",
+            "labels": {
+              "uploadDocument": "Upload your NPWP",
+              "pick": "Upload a file",
+              "hint": "PDF, JPEG, HEIC or PNG formats, up to 2MB.",
+              "reachedMax": "Reached maximum uploads",
+              "fileTooLarge": "Maximum file size is 2MB."
+            }
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasSameNpwpAsEktp",
+              "schema": {
+                "const": "no"
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.notesLabel",
+            "variant": "subhead",
+            "value": "Note:"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasSameNpwpAsEktp",
+              "schema": {
+                "const": "no"
+              }
+            }
+          }
+        },
+        {
+          "component": "List",
+          "options": {
+            "id": "properties.npwpUploadNotes",
+            "items": [
+              {
+                "id": 1,
+                "label": "•",
+                "value": "Take a photo of your physical NPWP card or select a file from your phone.",
+                "iconName": null,
+                "image": null
+              },
+              {
+                "id": 2,
+                "label": "•",
+                "value": "Position your card within the frame. Ensure the card number is clear and fully visible.",
+                "iconName": null,
+                "image": null
+              },
+              {
+                "id": 3,
+                "label": "•",
+                "value": "Maximum file size cannot exceed 2MB.",
+                "iconName": null,
+                "image": null
+              }
+            ]
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasSameNpwpAsEktp",
+              "schema": {
+                "const": "no"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.nextButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "submit"
+            }
+          },
+          "label": "Next"
+        }
+      ]
+    },
+    "overlay": {
+      "confirmLeave": {
+        "type": "modal",
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveTitle",
+                "variant": "title3",
+                "value": "Cancel application?",
+                "textAlign": "center",
+                "weight": "bold"
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveBody",
+                "variant": "body",
+                "value": "Your progress will not be saved. Are you sure you want to cancel?",
+                "textAlign": "center"
+              }
+            }
+          ]
+        },
+        "footer": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveYes",
+                    "variant": "destructive",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "navigate",
+                      "payload": {
+                        "target": "home"
+                      }
+                    }
+                  },
+                  "label": "Yes, cancel"
+                },
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveNo",
+                    "variant": "secondary",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "close_modal"
+                    }
+                  },
+                  "label": "Go back"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "data": {
+    "productName": "<Product name>",
+    "hasSameNpwpAsEktp": "yes",
+    "npwpNumber": "3673 0116 0793 1145",
+    "npwpDocuments": [],
+    "npwpUploadCountLabel": "0/1 upload(s)"
+  }
+}

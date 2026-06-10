@@ -1,0 +1,554 @@
+{
+  "screenId": "apply_kta_ektp_flow",
+  "version": 1,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "productName": {
+        "type": "string"
+      },
+      "instructionImageUrl": {
+        "type": "string"
+      },
+      "hasCapturedPhoto": {
+        "type": "boolean"
+      },
+      "uploadAttemptsMessage": {
+        "type": "string"
+      },
+      "capturedPhotoUrl": {
+        "type": "string"
+      }
+    },
+    "required": []
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "TopNavigation",
+          "options": {
+            "id": "properties.topNav",
+            "title": "Apply",
+            "disableSafeArea": false,
+            "action": {
+              "type": "open_modal",
+              "payload": {
+                "target": "confirmLeave"
+              }
+            }
+          }
+        },
+        {
+          "component": "BarProgressIndicator",
+          "options": {
+            "id": "properties.progress",
+            "type": "steppers",
+            "progress": 13,
+            "currentStep": 1,
+            "totalSteps": 8
+          }
+        }
+      ]
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.productName",
+            "variant": "body",
+            "valueSource": {
+              "type": "binding",
+              "path": "productName"
+            }
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.screenTitle",
+            "variant": "title1",
+            "value": "e-KTP photo instructions"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.instruction1",
+            "variant": "body",
+            "value": "Take a photo of your original e-KTP, not a copy or photocopy."
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.instruction2",
+            "variant": "body",
+            "value": "Position your e-KTP so the whole card fits within the frame."
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.instruction3",
+            "variant": "body",
+            "value": "Ensure all details on the e-KTP are clearly readable."
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.instruction4",
+            "variant": "body",
+            "value": "If your photo cannot be detected, please try again. You have 3 attempts per day."
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "component": "Divider",
+          "options": {
+            "id": "properties.instructionsDivider",
+            "orientation": "horizontal"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.exampleLabel",
+            "variant": "headline",
+            "value": "Example of e-KTP"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "component": "Image",
+          "options": {
+            "id": "properties.instructionImage",
+            "label": "Example of e-KTP",
+            "valueSource": {
+              "type": "binding",
+              "path": "instructionImageUrl"
+            },
+            "span": 12
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.previewProductName",
+            "variant": "body",
+            "valueSource": {
+              "type": "binding",
+              "path": "productName"
+            }
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.previewTitle",
+            "variant": "title1",
+            "value": "Check e-KTP photo"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.previewDescription",
+            "variant": "body",
+            "value": "Ensure your identity details are visible and not blurry. This helps us verify your account faster."
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "component": "AlertBanner",
+          "options": {
+            "id": "properties.uploadAttemptsBanner",
+            "severity": "info",
+            "alertContent": {
+              "title": "Upload attempts",
+              "body": "You may attempt to upload your ID photo 3 times per day."
+            }
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.uploadLabel",
+            "variant": "headline",
+            "value": "e-KTP upload"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "component": "Image",
+          "options": {
+            "id": "properties.capturedPhoto",
+            "label": "Uploaded e-KTP",
+            "valueSource": {
+              "type": "binding",
+              "path": "capturedPhotoUrl"
+            },
+            "span": 12
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.nextButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "open_modal",
+              "payload": {
+                "target": "cameraCapture"
+              }
+            }
+          },
+          "label": "Next",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.submitButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "submit"
+            }
+          },
+          "label": "Next",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.retakeButton",
+            "variant": "secondary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "open_modal",
+              "payload": {
+                "target": "cameraCapture"
+              }
+            }
+          },
+          "label": "Retake",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasCapturedPhoto",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    "overlay": {
+      "cameraCapture": {
+        "type": "modal",
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "TopNavigation",
+              "options": {
+                "id": "properties.cameraTopNav",
+                "title": "",
+                "disableSafeArea": true,
+                "action": {
+                  "type": "close_modal"
+                }
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "CameraCapture",
+              "options": {
+                "id": "properties.cameraCapture",
+                "instructionText": "Please ensure all information is visible in the frame.",
+                "aspectRatio": "card",
+                "captureMode": "document",
+                "documentType": "e-ktp"
+              }
+            }
+          ]
+        },
+        "footer": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Button",
+              "options": {
+                "id": "properties.captureButton",
+                "variant": "primary",
+                "size": "lg",
+                "disabled": false,
+                "loading": false,
+                "action": {
+                  "type": "CAPTURE_EKTP_PHOTO",
+                  "payload": {
+                    "closeModal": true,
+                    "data": {
+                      "hasCapturedPhoto": true,
+                      "capturedPhotoUrl": "https://mock-stp-be.vercel.app/mock-assets/ektp-captured.png"
+                    }
+                  }
+                }
+              },
+              "label": "Capture"
+            }
+          ]
+        }
+      },
+      "confirmLeave": {
+        "type": "modal",
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveTitle",
+                "variant": "title3",
+                "value": "Cancel application?",
+                "textAlign": "center",
+                "weight": "bold"
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveBody",
+                "variant": "body",
+                "value": "Your progress will not be saved. Are you sure you want to cancel?",
+                "textAlign": "center"
+              }
+            }
+          ]
+        },
+        "footer": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveYes",
+                    "variant": "destructive",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "navigate",
+                      "payload": {
+                        "target": "home"
+                      }
+                    }
+                  },
+                  "label": "Yes, cancel"
+                },
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveNo",
+                    "variant": "secondary",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "close_modal"
+                    }
+                  },
+                  "label": "Go back"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "data": {
+    "productName": "<Product Name>",
+    "instructionImageUrl": "https://mock-stp-be.vercel.app/mock-assets/ektp-example.png",
+    "hasCapturedPhoto": false,
+    "uploadAttemptsMessage": "You may attempt to upload your ID photo 3 times per day.",
+    "capturedPhotoUrl": ""
+  }
+}

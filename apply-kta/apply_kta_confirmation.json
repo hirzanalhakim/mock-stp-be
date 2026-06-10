@@ -1,0 +1,570 @@
+{
+  "screenId": "apply_kta_confirmation",
+  "version": 1,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "productName": {
+        "type": "string"
+      },
+      "productType": {
+        "type": "string"
+      },
+      "loanAmount": {
+        "type": "string"
+      },
+      "loanTenure": {
+        "type": "string"
+      },
+      "interestRate": {
+        "type": "string"
+      },
+      "estimatedMonthlyInstallment": {
+        "type": "string"
+      },
+      "provisionFee": {
+        "type": "string"
+      },
+      "loanPurpose": {
+        "type": "string"
+      },
+      "mobileNumber": {
+        "type": "string"
+      },
+      "fullName": {
+        "type": "string"
+      },
+      "relationship": {
+        "type": "string"
+      },
+      "addressLineMasked": {
+        "type": "string"
+      },
+      "province": {
+        "type": "string"
+      },
+      "city": {
+        "type": "string"
+      },
+      "district": {
+        "type": "string"
+      },
+      "subDistrict": {
+        "type": "string"
+      },
+      "rtRw": {
+        "type": "string"
+      },
+      "postcode": {
+        "type": "string"
+      },
+      "disbursementAccountName": {
+        "type": "string"
+      },
+      "disbursementAccountMaskedNumber": {
+        "type": "string"
+      },
+      "otherDetailsName": {
+        "type": "string"
+      },
+      "otherDetailsEmail": {
+        "type": "string"
+      },
+      "declarationAccepted": {
+        "type": "boolean",
+        "messages": {
+          "required": "You must agree to the declaration before confirming"
+        }
+      }
+    },
+    "required": [
+      "declarationAccepted"
+    ]
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "TopNavigation",
+          "options": {
+            "id": "properties.topNav",
+            "title": "Confirmation",
+            "disableSafeArea": false,
+            "action": {
+              "type": "open_modal",
+              "payload": {
+                "target": "confirmLeave"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.applyForLabel",
+            "variant": "subhead",
+            "value": "Apply for"
+          }
+        },
+        {
+          "component": "StaticCard",
+          "options": {
+            "id": "properties.productCard",
+            "variant": "horizontal",
+            "cardTitle": "Personal Loan",
+            "media": {
+              "type": "avatar",
+              "avatarText": "",
+              "avatarBackgroundColor": "#FFC700"
+            },
+            "bodyLines": [
+              {
+                "value": "Loan/Financing"
+              }
+            ]
+          }
+        },
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.amountDetailsLabel",
+                "variant": "subhead",
+                "value": "Amount details"
+              }
+            },
+            {
+              "component": "Link",
+              "options": {
+                "id": "properties.editAmountDetailsLink",
+                "label": "Edit",
+                "type": "underline",
+                "size": "sm",
+                "action": {
+                  "type": "NAVIGATE_BACK_TO_SCREEN",
+                  "target": "apply_kta_calculate_loan"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "component": "StaticCard",
+          "options": {
+            "id": "properties.amountDetailsCard",
+            "variant": "withDetails",
+            "detailRows": [
+              {
+                "label": "Loan amount",
+                "value": "IDR 50,000,000.00"
+              },
+              {
+                "label": "Loan tenure/interest rate",
+                "value": "36 months"
+              },
+              {
+                "label": "Interest rate",
+                "value": "1.69% per month"
+              },
+              {
+                "label": "Estimated monthly installment",
+                "value": "IDR 1,420,000.00"
+              },
+              {
+                "label": "Provision fee*",
+                "value": "IDR 250,000.00"
+              },
+              {
+                "label": "Loan purpose",
+                "value": "Education"
+              }
+            ]
+          }
+        },
+        {
+          "component": "Link",
+          "options": {
+            "id": "properties.applyRedemptionCodeLink",
+            "label": "Apply redemption code",
+            "type": "underline",
+            "size": "sm",
+            "action": {
+              "type": "OPEN_COMMON_FLOW",
+              "target": "apply_redemption_code"
+            }
+          }
+        },
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.emergencyContactLabel",
+                "variant": "subhead",
+                "value": "Emergency contact details"
+              }
+            },
+            {
+              "component": "Link",
+              "options": {
+                "id": "properties.editEmergencyContactLink",
+                "label": "Edit",
+                "type": "underline",
+                "size": "sm",
+                "action": {
+                  "type": "NAVIGATE_BACK_TO_SCREEN",
+                  "target": "apply_kta_emergency_contact_details"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "component": "StaticCard",
+          "options": {
+            "id": "properties.emergencyContactCard",
+            "variant": "withDetails",
+            "detailRows": [
+              {
+                "label": "Mobile number",
+                "value": "0812 3456 7890"
+              },
+              {
+                "label": "Full name",
+                "value": "Andhi"
+              },
+              {
+                "label": "Relationship",
+                "value": "Older sibling"
+              }
+            ]
+          }
+        },
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.correspondenceAddressLabel",
+                "variant": "subhead",
+                "value": "Correspondence address"
+              }
+            },
+            {
+              "component": "Link",
+              "options": {
+                "id": "properties.editCorrespondenceAddressLink",
+                "label": "Edit",
+                "type": "underline",
+                "size": "sm",
+                "action": {
+                  "type": "NAVIGATE_BACK_TO_SCREEN",
+                  "target": "apply_kta_correspondence_address"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "component": "StaticCard",
+          "options": {
+            "id": "properties.correspondenceAddressCard",
+            "variant": "withDetails",
+            "detailRows": [
+              {
+                "label": "Address line",
+                "value": "**** **** **** ****\n****yan 3"
+              },
+              {
+                "label": "Province",
+                "value": "Jakarta Selatan"
+              },
+              {
+                "label": "City",
+                "value": "Kebayoran Baru"
+              },
+              {
+                "label": "District",
+                "value": "Bendunggan Hilir"
+              },
+              {
+                "label": "Sub-district",
+                "value": "Gelora"
+              },
+              {
+                "label": "RT/RW",
+                "value": "001/003"
+              },
+              {
+                "label": "Postcode",
+                "value": "10270"
+              }
+            ]
+          }
+        },
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.disbursementAccountLabel",
+                "variant": "subhead",
+                "value": "Disbursement account details"
+              }
+            },
+            {
+              "component": "Link",
+              "options": {
+                "id": "properties.editDisbursementAccountLink",
+                "label": "Edit",
+                "type": "underline",
+                "size": "sm",
+                "action": {
+                  "type": "NAVIGATE_BACK_TO_SCREEN",
+                  "target": "apply_kta_select_disbursement_account"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "component": "StaticCard",
+          "options": {
+            "id": "properties.disbursementAccountCard",
+            "variant": "withDetails",
+            "detailRows": [
+              {
+                "label": "Disburse to",
+                "value": "U Transaction Account iB\n•••••••• 4612"
+              }
+            ]
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.otherDetailsLabel",
+            "variant": "subhead",
+            "value": "Other details"
+          }
+        },
+        {
+          "component": "StaticCard",
+          "options": {
+            "id": "properties.otherDetailsCard",
+            "variant": "withDetails",
+            "detailRows": [
+              {
+                "label": "Name",
+                "value": "Arnis"
+              },
+              {
+                "label": "Email address",
+                "value": "em*i@gaddress.com"
+              }
+            ]
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.noteLabel",
+            "variant": "subhead",
+            "value": "Note:"
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.noteBody",
+            "variant": "body",
+            "value": "*Provision fee will be taken from your disbursement amount."
+          }
+        },
+        {
+          "component": "Checkbox",
+          "options": {
+            "id": "properties.declarationAccepted",
+            "disabled": false
+          },
+          "label": "By ticking the box below, I declare that:"
+        },
+        {
+          "component": "List",
+          "options": {
+            "id": "properties.declarationList",
+            "items": [
+              {
+                "id": 1,
+                "label": "1.",
+                "value": "All information provided is true and accurate.",
+                "iconName": null,
+                "image": null
+              },
+              {
+                "id": 2,
+                "label": "2.",
+                "value": "I am not a tax resident of any country outside Indonesia.",
+                "iconName": null,
+                "image": null
+              },
+              {
+                "id": 3,
+                "label": "3.",
+                "value": "I am not a citizen and/or resident of the United States of America for tax purposes.",
+                "iconName": null,
+                "image": null
+              },
+              {
+                "id": 4,
+                "label": "4.",
+                "value": "I have read, understood, and agreed to the applicable Terms & Conditions and RIPLAY.",
+                "iconName": null,
+                "image": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.confirmButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": true,
+            "loading": false,
+            "action": {
+              "type": "submit"
+            }
+          },
+          "label": "Confirm",
+          "rule": {
+            "effect": "ENABLE",
+            "condition": {
+              "scope": "#/properties/declarationAccepted",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    "overlay": {
+      "confirmLeave": {
+        "type": "modal",
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveTitle",
+                "variant": "title3",
+                "value": "Cancel application?",
+                "textAlign": "center",
+                "weight": "bold"
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveBody",
+                "variant": "body",
+                "value": "Your progress will not be saved. Are you sure you want to cancel?",
+                "textAlign": "center"
+              }
+            }
+          ]
+        },
+        "footer": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveYes",
+                    "variant": "destructive",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "navigate",
+                      "payload": {
+                        "target": "home"
+                      }
+                    }
+                  },
+                  "label": "Yes, cancel"
+                },
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveNo",
+                    "variant": "secondary",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "close_modal"
+                    }
+                  },
+                  "label": "Go back"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "data": {
+    "productName": "Personal Loan",
+    "productType": "Loan/Financing",
+    "loanAmount": "IDR 50,000,000.00",
+    "loanTenure": "36 months",
+    "interestRate": "1.69% per month",
+    "estimatedMonthlyInstallment": "IDR 1,420,000.00",
+    "provisionFee": "IDR 250,000.00",
+    "loanPurpose": "Education",
+    "mobileNumber": "0812 3456 7890",
+    "fullName": "Andhi",
+    "relationship": "Older sibling",
+    "addressLineMasked": "**** **** **** ****\n****yan 3",
+    "province": "Jakarta Selatan",
+    "city": "Kebayoran Baru",
+    "district": "Bendunggan Hilir",
+    "subDistrict": "Gelora",
+    "rtRw": "001/003",
+    "postcode": "10270",
+    "disbursementAccountName": "U Transaction Account iB",
+    "disbursementAccountMaskedNumber": "•••••••• 4612",
+    "otherDetailsName": "Arnis",
+    "otherDetailsEmail": "em*i@gaddress.com",
+    "declarationAccepted": false
+  }
+}

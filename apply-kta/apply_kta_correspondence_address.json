@@ -1,0 +1,814 @@
+{
+  "screenId": "apply_kta_correspondence_address",
+  "version": 1,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "productName": {
+        "type": "string"
+      },
+      "addressStep": {
+        "type": "string",
+        "oneOf": [
+          {
+            "const": "summary_empty",
+            "title": "Summary empty"
+          },
+          {
+            "const": "add_form",
+            "title": "Add form"
+          },
+          {
+            "const": "summary_filled",
+            "title": "Summary filled"
+          },
+          {
+            "const": "edit_form",
+            "title": "Edit form"
+          }
+        ]
+      },
+      "addressType": {
+        "type": "string",
+        "oneOf": [
+          {
+            "const": "Residential",
+            "title": "Residential"
+          }
+        ]
+      },
+      "addressLine": {
+        "type": "string",
+        "messages": {
+          "required": "Address line is required"
+        }
+      },
+      "province": {
+        "type": "string",
+        "messages": {
+          "required": "Province is required"
+        }
+      },
+      "city": {
+        "type": "string",
+        "messages": {
+          "required": "City is required"
+        }
+      },
+      "district": {
+        "type": "string",
+        "messages": {
+          "required": "District is required"
+        }
+      },
+      "subDistrict": {
+        "type": "string",
+        "messages": {
+          "required": "Sub-district is required"
+        }
+      },
+      "rt": {
+        "type": "string",
+        "messages": {
+          "required": "RT is required"
+        }
+      },
+      "rw": {
+        "type": "string",
+        "messages": {
+          "required": "RW is required"
+        }
+      },
+      "postcode": {
+        "type": "string",
+        "messages": {
+          "required": "Postcode is required"
+        }
+      },
+      "declareAddressAccurate": {
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+          "oneOf": [
+            {
+              "const": "agree",
+              "title": "I hereby declare and take responsibility that the address provided above is my correct and up-to-date correspondence address. I understand Maybank to use this data for the Unsecured Personal Loan (KTA) application process."
+            }
+          ]
+        }
+      },
+      "selectedAddressToast": {
+        "type": "string"
+      },
+      "emptyStateImageUrl": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "addressType"
+    ]
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "TopNavigation",
+          "options": {
+            "id": "properties.topNav",
+            "title": "Apply",
+            "disableSafeArea": false,
+            "action": {
+              "type": "open_modal",
+              "payload": {
+                "target": "confirmLeave"
+              }
+            }
+          }
+        },
+        {
+          "component": "BarProgressIndicator",
+          "options": {
+            "id": "properties.progress",
+            "type": "steppers",
+            "progress": 75,
+            "currentStep": 6,
+            "totalSteps": 8
+          }
+        }
+      ]
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.productName",
+            "variant": "body",
+            "valueSource": {
+              "type": "binding",
+              "path": "productName"
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.summaryTitle",
+            "variant": "title1",
+            "value": "Correspondence address"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "enum": ["summary_empty", "summary_filled"]
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.formTitle",
+            "variant": "title1",
+            "value": "Add selected address details"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "const": "add_form"
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.editTitle",
+            "variant": "title1",
+            "value": "Edit selected address details"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "const": "edit_form"
+              }
+            }
+          }
+        },
+        {
+          "component": "Dropdown",
+          "options": {
+            "id": "properties.addressType",
+            "placeholder": "Select address type",
+            "disabled": false,
+            "value": "Residential"
+          },
+          "label": "Address type"
+        },
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.addressDetailsLabel",
+                "variant": "subhead",
+                "value": "Address details"
+              }
+            },
+            {
+              "component": "Link",
+              "options": {
+                "id": "properties.editAddressLink",
+                "label": "Edit",
+                "type": "underline",
+                "size": "sm",
+                "action": {
+                  "type": "OPEN_EDIT_ADDRESS_FORM",
+                  "payload": {
+                    "data": {
+                      "addressStep": "edit_form"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "const": "summary_filled"
+              }
+            }
+          }
+        },
+        {
+          "component": "Image",
+          "options": {
+            "id": "properties.emptyStateImage",
+            "label": "No address available",
+            "valueSource": {
+              "type": "binding",
+              "path": "emptyStateImageUrl"
+            },
+            "span": 12
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "const": "summary_empty"
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.emptyStateTitle",
+            "variant": "headline",
+            "value": "No address available yet"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "const": "summary_empty"
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.emptyStateDescription",
+            "variant": "body",
+            "value": "Tap Add address to save the address details."
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "const": "summary_empty"
+              }
+            }
+          }
+        },
+        {
+          "component": "Link",
+          "options": {
+            "id": "properties.addAddressLink",
+            "label": "Add address",
+            "type": "underline",
+            "size": "sm",
+            "action": {
+              "type": "OPEN_ADD_ADDRESS_FORM",
+              "payload": {
+                "data": {
+                  "addressStep": "add_form"
+                }
+              }
+            }
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "const": "summary_empty"
+              }
+            }
+          }
+        },
+        {
+          "component": "AlertBanner",
+          "options": {
+            "id": "properties.addressFormInfoBanner",
+            "severity": "info",
+            "alertContent": {
+              "title": "Changing your address here updates all details elsewhere.",
+              "body": "You can manage the full address in Settings anytime."
+            }
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "enum": ["add_form", "edit_form"]
+              }
+            }
+          }
+        },
+        {
+          "component": "TextInput",
+          "options": {
+            "id": "properties.addressLine",
+            "placeholder": "Enter address line",
+            "disabled": false
+          },
+          "label": "Address line",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "enum": ["add_form", "edit_form"]
+              }
+            }
+          }
+        },
+        {
+          "component": "Dropdown",
+          "options": {
+            "id": "properties.province",
+            "placeholder": "Select province",
+            "disabled": false,
+            "value": "Jakarta Selatan"
+          },
+          "label": "Province",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "enum": ["add_form", "edit_form"]
+              }
+            }
+          }
+        },
+        {
+          "component": "Dropdown",
+          "options": {
+            "id": "properties.city",
+            "placeholder": "Select city",
+            "disabled": false,
+            "value": "Kebayoran Baru"
+          },
+          "label": "City",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "enum": ["add_form", "edit_form"]
+              }
+            }
+          }
+        },
+        {
+          "component": "Dropdown",
+          "options": {
+            "id": "properties.district",
+            "placeholder": "Select district",
+            "disabled": false,
+            "value": "Bendunggan Hilir"
+          },
+          "label": "District",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "enum": ["add_form", "edit_form"]
+              }
+            }
+          }
+        },
+        {
+          "component": "Dropdown",
+          "options": {
+            "id": "properties.subDistrict",
+            "placeholder": "Select sub-district",
+            "disabled": false,
+            "value": "Gelora"
+          },
+          "label": "Sub-district",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "enum": ["add_form", "edit_form"]
+              }
+            }
+          }
+        },
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "component": "TextInput",
+              "options": {
+                "id": "properties.rt",
+                "placeholder": "Enter RT",
+                "disabled": false
+              },
+              "label": "RT"
+            },
+            {
+              "component": "TextInput",
+              "options": {
+                "id": "properties.rw",
+                "placeholder": "Enter RW",
+                "disabled": false
+              },
+              "label": "RW"
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "enum": ["add_form", "edit_form"]
+              }
+            }
+          }
+        },
+        {
+          "component": "Dropdown",
+          "options": {
+            "id": "properties.postcode",
+            "placeholder": "Select postcode",
+            "disabled": false,
+            "value": "10270"
+          },
+          "label": "Postcode",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "enum": ["add_form", "edit_form"]
+              }
+            }
+          }
+        },
+        {
+          "component": "List",
+          "options": {
+            "id": "properties.addressDetailsSummary",
+            "items": [
+              {
+                "id": 1,
+                "label": "Address line",
+                "value": "Jl. Asia Afrika Sentral Senayan 3",
+                "iconName": null,
+                "image": null
+              },
+              {
+                "id": 2,
+                "label": "Province",
+                "value": "Jakarta Selatan",
+                "iconName": null,
+                "image": null
+              },
+              {
+                "id": 3,
+                "label": "City",
+                "value": "Kebayoran Baru",
+                "iconName": null,
+                "image": null
+              },
+              {
+                "id": 4,
+                "label": "District",
+                "value": "Bendunggan Hilir",
+                "iconName": null,
+                "image": null
+              },
+              {
+                "id": 5,
+                "label": "Sub-district",
+                "value": "Gelora",
+                "iconName": null,
+                "image": null
+              },
+              {
+                "id": 6,
+                "label": "RT/RW",
+                "value": "001/003",
+                "iconName": null,
+                "image": null
+              },
+              {
+                "id": 7,
+                "label": "Postcode",
+                "value": "10270",
+                "iconName": null,
+                "image": null
+              }
+            ]
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "const": "summary_filled"
+              }
+            }
+          }
+        },
+        {
+          "component": "Checkbox",
+          "options": {
+            "id": "properties.declareAddressAccurate",
+            "disabled": false
+          },
+          "label": "I hereby declare:",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "const": "summary_filled"
+              }
+            }
+          }
+        },
+        {
+          "component": "AlertBanner",
+          "options": {
+            "id": "properties.addressSavedToast",
+            "severity": "success",
+            "alertContent": {
+              "title": "Selected address details added",
+              "body": "Updated."
+            }
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/selectedAddressToast",
+              "schema": {
+                "const": "show"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.emptyNextButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "OPEN_ADD_ADDRESS_FORM",
+              "payload": {
+                "data": {
+                  "addressStep": "add_form"
+                }
+              }
+            }
+          },
+          "label": "Next",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "const": "summary_empty"
+              }
+            }
+          }
+        },
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.addConfirmButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "SAVE_ADDRESS_DETAILS",
+              "payload": {
+                "data": {
+                  "addressStep": "summary_filled",
+                  "selectedAddressToast": "show"
+                }
+              }
+            }
+          },
+          "label": "Next",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "const": "add_form"
+              }
+            }
+          }
+        },
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.editConfirmButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "SAVE_ADDRESS_DETAILS",
+              "payload": {
+                "data": {
+                  "addressStep": "summary_filled",
+                  "selectedAddressToast": "show"
+                }
+              }
+            }
+          },
+          "label": "Confirm",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "const": "edit_form"
+              }
+            }
+          }
+        },
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.summaryNextButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "submit"
+            }
+          },
+          "label": "Next",
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/addressStep",
+              "schema": {
+                "const": "summary_filled"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "overlay": {
+      "confirmLeave": {
+        "type": "modal",
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveTitle",
+                "variant": "title3",
+                "value": "Cancel application?",
+                "textAlign": "center",
+                "weight": "bold"
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveBody",
+                "variant": "body",
+                "value": "Your progress will not be saved. Are you sure you want to cancel?",
+                "textAlign": "center"
+              }
+            }
+          ]
+        },
+        "footer": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveYes",
+                    "variant": "destructive",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "navigate",
+                      "payload": {
+                        "target": "home"
+                      }
+                    }
+                  },
+                  "label": "Yes, cancel"
+                },
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveNo",
+                    "variant": "secondary",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "close_modal"
+                    }
+                  },
+                  "label": "Go back"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "data": {
+    "productName": "<Product name>",
+    "addressStep": "summary_filled",
+    "addressType": "Residential",
+    "addressLine": "Jl. Asia Afrika Sentral Senayan 3",
+    "province": "Jakarta Selatan",
+    "city": "Kebayoran Baru",
+    "district": "Bendunggan Hilir",
+    "subDistrict": "Gelora",
+    "rt": "001",
+    "rw": "003",
+    "postcode": "10270",
+    "declareAddressAccurate": [
+      "agree"
+    ],
+    "selectedAddressToast": "show",
+    "emptyStateImageUrl": "https://mock-stp-be.vercel.app/mock-assets/address-empty.png"
+  }
+}

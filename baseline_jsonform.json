@@ -1,0 +1,946 @@
+{
+  "screenId": "complete-form-example",
+  "version": 1,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "firstName": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 50,
+        "messages": {
+          "required": "First name is required",
+          "minLength": "Minimum 2 characters"
+        }
+      },
+      "lastName": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 50,
+        "messages": {
+          "required": "Last name is required"
+        }
+      },
+      "emailAddress": {
+        "type": "string",
+        "minLength": 5,
+        "maxLength": 200,
+        "messages": {
+          "required": "Email is required",
+          "email": "Enter a valid email address",
+          "minLength": "Email must be at least 5 characters",
+          "maxLength": "Email must be at most 200 characters"
+        }
+      },
+      "country": {
+        "type": "string",
+        "messages": {
+          "required": "Please select a country"
+        },
+        "oneOf": [
+          {
+            "const": "MY",
+            "title": "Malaysia"
+          },
+          {
+            "const": "SG",
+            "title": "Singapore"
+          },
+          {
+            "const": "TH",
+            "title": "Thailand"
+          },
+          {
+            "const": "ID",
+            "title": "Indonesia"
+          }
+        ]
+      },
+      "contactMethod": {
+        "type": "string",
+        "messages": {
+          "required": "Please select a contact method"
+        },
+        "oneOf": [
+          {
+            "const": "email",
+            "title": "Email"
+          },
+          {
+            "const": "phone",
+            "title": "Phone Call"
+          },
+          {
+            "const": "sms",
+            "title": "SMS"
+          }
+        ]
+      },
+      "phoneNumber": {
+        "type": "string",
+        "dependent": ["properties.contactMethod"]
+      },
+      "foreignId": {
+        "type": "string"
+      },
+      "areaCode": {
+        "type": "string"
+      },
+      "notifications": {
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+          "oneOf": [
+            {
+              "const": "news",
+              "title": "News & Updates"
+            },
+            {
+              "const": "promos",
+              "title": "Promotions"
+            },
+            {
+              "const": "reminders",
+              "title": "Reminders"
+            }
+          ]
+        }
+      },
+      "agreeToTerms": {
+        "type": "boolean",
+        "messages": {
+          "required": "You must agree to the terms"
+        }
+      },
+      "promoCode": {
+        "type": "string",
+        "dependent": ["properties.agreeToTerms"]
+      },
+      "discountLevel": {
+        "type": "number"
+      },
+      "quantity": {
+        "type": "number"
+      },
+      "verificationPin": {
+        "type": "string",
+        "messages": {
+          "required": "Verification PIN is required"
+        }
+      },
+      "supportingDocs": {},
+      "personalData": {
+        "type": "object",
+        "properties": {
+          "age": {
+            "type": "integer",
+            "messages": {
+              "required": "Please enter your age"
+            }
+          },
+          "height": {
+            "type": "number",
+            "messages": {
+              "required": "Please enter your height"
+            }
+          },
+          "drivingSkill": {
+            "type": "number"
+          }
+        },
+        "required": ["age", "height"]
+      },
+      "selectedAccountId": {
+        "type": "string",
+        "messages": {
+          "required": "Please select an account"
+        },
+        "oneOf": [
+          {
+            "const": "acc_001",
+            "title": "U Transaction Account iB — 5012 3341 4612"
+          },
+          {
+            "const": "acc_002",
+            "title": "Savings Account — 5012 9981 2234"
+          },
+          {
+            "const": "acc_003",
+            "title": "Premier Account — 5012 0041 8812"
+          }
+        ]
+      },
+      "filterLoanPurpose": {
+        "type": "string",
+        "oneOf": [
+          {
+            "const": "education",
+            "title": "Education"
+          },
+          {
+            "const": "medical",
+            "title": "Medical or healthcare"
+          },
+          {
+            "const": "shopping",
+            "title": "Shopping"
+          },
+          {
+            "const": "home_renovation",
+            "title": "Home renovation"
+          },
+          {
+            "const": "vacation",
+            "title": "Vacation"
+          },
+          {
+            "const": "wedding",
+            "title": "Wedding"
+          }
+        ]
+      },
+      "filterStatus": {
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+          "oneOf": [
+            {
+              "const": "pending",
+              "title": "Pending"
+            },
+            {
+              "const": "approved",
+              "title": "Approved"
+            },
+            {
+              "const": "rejected",
+              "title": "Rejected"
+            },
+            {
+              "const": "disbursed",
+              "title": "Disbursed"
+            }
+          ]
+        }
+      },
+      "filterSortBy": {
+        "type": "string",
+        "oneOf": [
+          {
+            "const": "date_desc",
+            "title": "Most recent"
+          },
+          {
+            "const": "date_asc",
+            "title": "Oldest first"
+          },
+          {
+            "const": "amount_desc",
+            "title": "Highest amount"
+          },
+          {
+            "const": "amount_asc",
+            "title": "Lowest amount"
+          }
+        ]
+      },
+      "filterKeyword": {
+        "type": "string"
+      },
+      "termsAgreed": {
+        "type": "boolean",
+        "messages": {
+          "required": "You must agree to continue"
+        }
+      }
+    },
+    "required": [
+      "firstName",
+      "lastName",
+      "emailAddress",
+      "country",
+      "contactMethod",
+      "agreeToTerms",
+      "verificationPin",
+      "selectedAccountId",
+      "termsAgreed"
+    ]
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "TopNavigation",
+          "options": {
+            "id": "properties.topNav",
+            "title": "Complete Form Example",
+            "disableSafeArea": false
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.screenTitle",
+            "variant": "title2",
+            "value": "All Conditions Demo",
+            "textAlign": "center"
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.screenSubtitle",
+            "variant": "body",
+            "value": "Fill in all fields below",
+            "textAlign": "center"
+          }
+        }
+      ]
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "component": "TextInput",
+              "options": {
+                "id": "properties.firstName",
+                "placeholder": "Enter first name",
+                "disabled": false
+              },
+              "label": "First Name"
+            },
+            {
+              "component": "TextInput",
+              "options": {
+                "id": "properties.lastName",
+                "placeholder": "Enter last name",
+                "disabled": false
+              },
+              "label": "Last Name"
+            }
+          ]
+        },
+        {
+          "component": "TextInput",
+          "options": {
+            "id": "properties.emailAddress",
+            "placeholder": "Enter your email",
+            "disabled": false
+          },
+          "label": "Email Address",
+          "dynamic": {
+            "id": 16,
+            "enabled": true,
+            "type": "VALUE",
+            "target": "defaultValue",
+            "source": {
+              "id": 16,
+              "type": "FACT",
+              "path": "userEmail",
+              "serviceCode": null
+            }
+          }
+        },
+        {
+          "component": "Dropdown",
+          "options": {
+            "id": "properties.country",
+            "placeholder": "Select your country",
+            "disabled": false
+          },
+          "label": "Country"
+        },
+        {
+          "component": "RadioButton",
+          "options": {
+            "id": "properties.contactMethod",
+            "groupDirection": "vertical",
+            "disabled": false
+          },
+          "label": "Preferred Contact Method"
+        },
+        {
+          "component": "TextInput",
+          "options": {
+            "id": "properties.phoneNumber",
+            "placeholder": "+60 12 345 6789",
+            "disabled": false
+          },
+          "label": "Phone Number",
+          "dependent": ["properties.contactMethod"],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/contactMethod",
+              "schema": {
+                "const": "phone"
+              }
+            }
+          }
+        },
+        {
+          "component": "TextInput",
+          "options": {
+            "id": "properties.foreignId",
+            "placeholder": "Enter foreign identification number",
+            "disabled": false
+          },
+          "label": "Foreign ID Number",
+          "rule": {
+            "effect": "HIDE",
+            "condition": {
+              "scope": "#/properties/country",
+              "schema": {
+                "const": "MY"
+              }
+            }
+          }
+        },
+        {
+          "component": "SearchInput",
+          "options": {
+            "id": "properties.areaCode",
+            "placeholder": "Search area code",
+            "disabled": false
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/contactMethod",
+              "schema": {
+                "enum": ["phone", "sms"]
+              }
+            }
+          }
+        },
+        {
+          "component": "Checkbox",
+          "options": {
+            "id": "properties.notifications",
+            "disabled": false
+          },
+          "label": "Notification Preferences"
+        },
+        {
+          "component": "Toggle",
+          "options": {
+            "id": "properties.agreeToTerms",
+            "size": "md",
+            "disabled": false
+          }
+        },
+        {
+          "component": "TextInput",
+          "options": {
+            "id": "properties.promoCode",
+            "placeholder": "Enter promo code (optional)",
+            "disabled": false
+          },
+          "label": "Promo Code",
+          "dependent": ["properties.agreeToTerms"],
+          "rule": {
+            "effect": "ENABLE",
+            "condition": {
+              "scope": "#/properties/agreeToTerms",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "component": "Slider",
+          "options": {
+            "id": "properties.discountLevel",
+            "min": 0,
+            "max": 100,
+            "step": 10
+          },
+          "label": "Discount Level (%)",
+          "rule": {
+            "effect": "DISABLE",
+            "condition": {
+              "scope": "#/properties/agreeToTerms",
+              "schema": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "component": "NumberInputStepper",
+          "options": {
+            "id": "properties.quantity",
+            "min": 1,
+            "max": 99,
+            "step": 1,
+            "editable": true
+          },
+          "label": "Quantity"
+        },
+        {
+          "component": "PinInput",
+          "options": {
+            "id": "properties.verificationPin",
+            "numberOfDigits": 6,
+            "inputMode": "numeric",
+            "secureTextEntry": false,
+            "autoFocus": false
+          }
+        },
+        {
+          "component": "Uploader",
+          "options": {
+            "id": "properties.supportingDocs",
+            "maxFiles": 3,
+            "maxFileSizeBytes": 5242880,
+            "autoUpload": false,
+            "disabled": false
+          }
+        },
+        {
+          "component": "NumberInputStepper",
+          "options": {
+            "id": "properties.personalData.properties.age",
+            "min": 18,
+            "max": 99,
+            "step": 1,
+            "editable": true
+          },
+          "label": "Age"
+        },
+        {
+          "component": "NumberInputStepper",
+          "options": {
+            "id": "properties.personalData.properties.height",
+            "min": 50,
+            "max": 250,
+            "step": 1,
+            "editable": true
+          },
+          "label": "Height (cm)"
+        },
+        {
+          "component": "Slider",
+          "options": {
+            "id": "properties.personalData.properties.drivingSkill",
+            "min": 1,
+            "max": 10,
+            "step": 1
+          },
+          "label": "Driving Skill"
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.submitButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false
+          },
+          "label": "Submit"
+        }
+      ]
+    },
+    "overlay": {
+      "accountPicker": {
+        "type": "bottom-sheet",
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.accountPickerTitle",
+                "variant": "title3",
+                "value": "Select account",
+                "weight": "semibold"
+              }
+            },
+            {
+              "component": "Divider",
+              "options": {
+                "id": "properties.accountPickerDivider",
+                "orientation": "horizontal"
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "RadioButton",
+              "options": {
+                "id": "properties.selectedAccountId",
+                "groupDirection": "vertical",
+                "disabled": false
+              },
+              "label": "Choose disbursement account",
+              "dynamic": {
+                "id": 12,
+                "enabled": true,
+                "type": "OPTIONS",
+                "target": "choices",
+                "source": {
+                  "id": 12,
+                  "type": "FACT",
+                  "path": "userAccounts",
+                  "serviceCode": null
+                }
+              }
+            }
+          ]
+        },
+        "footer": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Button",
+              "options": {
+                "id": "properties.confirmAccountBtn",
+                "variant": "primary",
+                "size": "lg",
+                "disabled": false,
+                "loading": false,
+                "action": {
+                  "type": "close_modal"
+                }
+              },
+              "label": "Confirm"
+            }
+          ]
+        }
+      },
+      "confirmLeave": {
+        "type": "modal",
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveTitle",
+                "variant": "title3",
+                "value": "Cancel application?",
+                "textAlign": "center",
+                "weight": "bold"
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveBody",
+                "variant": "body",
+                "value": "Your progress will not be saved. Are you sure you want to cancel?",
+                "textAlign": "center"
+              }
+            }
+          ]
+        },
+        "footer": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveYes",
+                    "variant": "destructive",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "navigate",
+                      "payload": {
+                        "target": "home"
+                      }
+                    }
+                  },
+                  "label": "Yes, cancel"
+                },
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveNo",
+                    "variant": "secondary",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "close_modal"
+                    }
+                  },
+                  "label": "Go back"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "filterPanel": {
+        "type": "side-sheet",
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.filterTitle",
+                "variant": "title3",
+                "value": "Filter",
+                "weight": "semibold"
+              }
+            },
+            {
+              "component": "Divider",
+              "options": {
+                "id": "properties.filterDivider",
+                "orientation": "horizontal"
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Dropdown",
+              "options": {
+                "id": "properties.filterLoanPurpose",
+                "placeholder": "All purposes",
+                "disabled": false
+              },
+              "label": "Loan purpose"
+            },
+            {
+              "component": "Checkbox",
+              "options": {
+                "id": "properties.filterStatus",
+                "disabled": false
+              },
+              "label": "Application status"
+            },
+            {
+              "component": "Dropdown",
+              "options": {
+                "id": "properties.filterSortBy",
+                "placeholder": "Most recent",
+                "disabled": false
+              },
+              "label": "Sort by"
+            },
+            {
+              "component": "TextInput",
+              "options": {
+                "id": "properties.filterKeyword",
+                "placeholder": "Search applications...",
+                "disabled": false
+              },
+              "label": "Keyword"
+            }
+          ]
+        },
+        "footer": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.filterApplyBtn",
+                    "variant": "primary",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "close_modal"
+                    }
+                  },
+                  "label": "Apply"
+                },
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.filterResetBtn",
+                    "variant": "secondary",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "close_modal"
+                    }
+                  },
+                  "label": "Reset"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "termsViewer": {
+        "type": "full-screen",
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "TopNavigation",
+              "options": {
+                "id": "properties.termsNavHeader",
+                "title": "Terms & Conditions",
+                "disableSafeArea": false
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.termsTitle",
+                "variant": "title2",
+                "value": "Personal Loan Terms & Conditions",
+                "weight": "bold"
+              }
+            },
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.termsEffectiveDate",
+                "variant": "subhead",
+                "value": "Effective date: 1 January 2026",
+                "weight": "regular"
+              }
+            },
+            {
+              "component": "Divider",
+              "options": {
+                "id": "properties.termsDivider1",
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "component": "List",
+              "options": {
+                "id": "properties.termsSections",
+                "items": [
+                  {
+                    "id": 30,
+                    "label": "1. Eligibility",
+                    "value": "Applicants must be at least 21 years old and a Malaysian citizen or permanent resident.",
+                    "iconName": null,
+                    "image": null
+                  },
+                  {
+                    "id": 31,
+                    "label": "2. Loan Amount",
+                    "value": "Minimum loan amount is IDR 5,000,000. Maximum is IDR 200,000,000 subject to credit assessment.",
+                    "iconName": null,
+                    "image": null
+                  },
+                  {
+                    "id": 32,
+                    "label": "3. Tenure",
+                    "value": "Loan tenure ranges from 12 to 60 months.",
+                    "iconName": null,
+                    "image": null
+                  },
+                  {
+                    "id": 33,
+                    "label": "4. Interest Rate",
+                    "value": "Interest rate is fixed at the time of application and varies based on tenure selected.",
+                    "iconName": null,
+                    "image": null
+                  },
+                  {
+                    "id": 34,
+                    "label": "5. Early Settlement",
+                    "value": "Early settlement is permitted. An early settlement fee may apply.",
+                    "iconName": null,
+                    "image": null
+                  }
+                ]
+              }
+            },
+            {
+              "component": "Toggle",
+              "options": {
+                "id": "properties.termsAgreed",
+                "size": "md",
+                "disabled": false
+              }
+            }
+          ]
+        },
+        "footer": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Button",
+              "options": {
+                "id": "properties.termsConfirmBtn",
+                "variant": "primary",
+                "size": "lg",
+                "disabled": false,
+                "loading": false,
+                "action": {
+                  "type": "close_modal"
+                }
+              },
+              "label": "I Agree"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "data": {
+    "firstName": "",
+    "lastName": "",
+    "emailAddress": "",
+    "country": "",
+    "contactMethod": "",
+    "phoneNumber": "",
+    "foreignId": "",
+    "areaCode": "",
+    "notifications": [],
+    "agreeToTerms": "",
+    "promoCode": "",
+    "discountLevel": "",
+    "quantity": "",
+    "verificationPin": "",
+    "supportingDocs": "",
+    "personalData": {
+      "age": "",
+      "height": "",
+      "drivingSkill": ""
+    },
+    "selectedAccountId": "",
+    "filterLoanPurpose": "",
+    "filterStatus": [],
+    "filterSortBy": "",
+    "filterKeyword": "",
+    "termsAgreed": ""
+  }
+}

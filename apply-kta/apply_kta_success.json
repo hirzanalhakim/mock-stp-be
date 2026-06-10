@@ -1,0 +1,205 @@
+{
+  "screenId": "apply_kta_success",
+  "version": 1,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "successTitle": {
+        "type": "string"
+      },
+      "submittedAt": {
+        "type": "string"
+      },
+      "referenceId": {
+        "type": "string"
+      },
+      "applicationType": {
+        "type": "string"
+      },
+      "loanAmount": {
+        "type": "string"
+      },
+      "loanTenure": {
+        "type": "string"
+      },
+      "interestRate": {
+        "type": "string"
+      },
+      "estimatedMonthlyInstallment": {
+        "type": "string"
+      },
+      "provisionFee": {
+        "type": "string"
+      },
+      "loanPurpose": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "emailAddress": {
+        "type": "string"
+      }
+    },
+    "required": []
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": []
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.successIcon",
+            "variant": "title1",
+            "value": "Success"
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.successTitle",
+            "variant": "title1",
+            "value": "Application submitted"
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.submittedAt",
+            "variant": "body",
+            "value": "3 Oct 2025, 9:41 AM"
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.referenceId",
+            "variant": "body",
+            "value": "Ref ID: 106713456"
+          }
+        },
+        {
+          "component": "StaticCard",
+          "options": {
+            "id": "properties.applicationSummaryCard",
+            "variant": "withDetails",
+            "detailRows": [
+              {
+                "label": "Application type",
+                "value": "Apply Personal Loan"
+              },
+              {
+                "label": "Loan amount",
+                "value": "IDR 50,000,000.00"
+              },
+              {
+                "label": "Loan tenure/interest rate",
+                "value": "36 months"
+              },
+              {
+                "label": "Interest rate",
+                "value": "1.69% per month"
+              },
+              {
+                "label": "Estimated monthly installment",
+                "value": "IDR 1,420,000.00"
+              },
+              {
+                "label": "Provision fee*",
+                "value": "IDR 250,000.00"
+              },
+              {
+                "label": "Loan purpose",
+                "value": "Education"
+              },
+              {
+                "label": "Name",
+                "value": "Arnis"
+              },
+              {
+                "label": "Email address",
+                "value": "em*li@address.com"
+              }
+            ]
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.noteLabel",
+            "variant": "subhead",
+            "value": "Note:"
+          }
+        },
+        {
+          "component": "List",
+          "options": {
+            "id": "properties.successNotes",
+            "items": [
+              {
+                "id": 1,
+                "label": "•",
+                "value": "Your application status will be emailed to your registered email. Please check for an email from PT. Bank Maybank Indonesia, Tbk.",
+                "iconName": null,
+                "image": null
+              },
+              {
+                "id": 2,
+                "label": "•",
+                "value": "Provision fee will be taken from your disbursement amount.",
+                "iconName": null,
+                "image": null
+              },
+              {
+                "id": 3,
+                "label": "•",
+                "value": "Your loan will be disbursed once approved by the Bank.",
+                "iconName": null,
+                "image": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.doneButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "NAVIGATE",
+              "target": "apply_dashboard_home"
+            }
+          },
+          "label": "Done"
+        }
+      ]
+    }
+  },
+  "data": {
+    "successTitle": "Application submitted",
+    "submittedAt": "3 Oct 2025, 9:41 AM",
+    "referenceId": "106713456",
+    "applicationType": "Apply Personal Loan",
+    "loanAmount": "IDR 50,000,000.00",
+    "loanTenure": "36 months",
+    "interestRate": "1.69% per month",
+    "estimatedMonthlyInstallment": "IDR 1,420,000.00",
+    "provisionFee": "IDR 250,000.00",
+    "loanPurpose": "Education",
+    "name": "Arnis",
+    "emailAddress": "em*li@address.com"
+  }
+}

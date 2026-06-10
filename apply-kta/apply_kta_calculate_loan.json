@@ -1,0 +1,541 @@
+{
+  "screenId": "apply_kta_calculate_loan",
+  "version": 1,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "productName": {
+        "type": "string"
+      },
+      "loanAmount": {
+        "type": "string",
+        "messages": {
+          "required": "Loan amount is required"
+        }
+      },
+      "loanTenureRate": {
+        "type": "string",
+        "oneOf": [
+          {
+            "const": "12 months • 1.49% p.a.",
+            "title": "12 months • 1.49% p.a."
+          },
+          {
+            "const": "24 months • 1.59% p.a.",
+            "title": "24 months • 1.59% p.a."
+          },
+          {
+            "const": "36 months • 1.69% p.a.",
+            "title": "36 months • 1.69% p.a."
+          }
+        ],
+        "messages": {
+          "required": "Please select loan tenure and interest rate"
+        }
+      },
+      "selectedTenureTag": {
+        "type": "string"
+      },
+      "estimatedMonthlyInstallment": {
+        "type": "string"
+      },
+      "loanPurpose": {
+        "type": "string",
+        "oneOf": [
+          {
+            "const": "Education",
+            "title": "Education"
+          },
+          {
+            "const": "Medical or healthcare",
+            "title": "Medical or healthcare"
+          },
+          {
+            "const": "Shopping",
+            "title": "Shopping"
+          },
+          {
+            "const": "Home renovation",
+            "title": "Home renovation"
+          },
+          {
+            "const": "Vacation",
+            "title": "Vacation"
+          },
+          {
+            "const": "Wedding",
+            "title": "Wedding"
+          }
+        ],
+        "messages": {
+          "required": "Please select loan purpose"
+        }
+      }
+    },
+    "required": [
+      "loanAmount",
+      "loanTenureRate",
+      "loanPurpose"
+    ]
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "TopNavigation",
+          "options": {
+            "id": "properties.topNav",
+            "title": "Apply",
+            "disableSafeArea": false,
+            "action": {
+              "type": "open_modal",
+              "payload": {
+                "target": "confirmLeave"
+              }
+            }
+          }
+        },
+        {
+          "component": "BarProgressIndicator",
+          "options": {
+            "id": "properties.progress",
+            "type": "steppers",
+            "progress": 25,
+            "currentStep": 2,
+            "totalSteps": 8
+          }
+        }
+      ]
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.productName",
+            "variant": "body",
+            "valueSource": {
+              "type": "binding",
+              "path": "productName"
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.screenTitle",
+            "variant": "title1",
+            "value": "Personalise your loan"
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.screenDescription",
+            "variant": "body",
+            "value": "Set your amount and tenure to find the monthly instalment that works for you."
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.loanAmountLabel",
+            "variant": "subhead",
+            "value": "Loan amount"
+          }
+        },
+        {
+          "component": "AmountInput",
+          "options": {
+            "id": "properties.loanAmount",
+            "value": "50000000",
+            "placeholder": "0",
+            "prefixValue": "IDR",
+            "amountInputType": "manual-ID",
+            "variant": "amount",
+            "country": "ID",
+            "languageCode": "id",
+            "showDone": true
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.loanTenureRateLabel",
+            "variant": "subhead",
+            "value": "Loan tenure/interest rate"
+          }
+        },
+        {
+          "component": "Dropdown",
+          "options": {
+            "id": "properties.loanTenureRate",
+            "placeholder": "Select loan tenure/interest rate",
+            "disabled": false,
+            "value": "36 months • 1.69% p.a.",
+            "action": {
+              "type": "OPEN_BOTTOM_SHEET",
+              "target": "select_loan_tenure_drawer"
+            }
+          },
+          "label": "Loan tenure/interest rate"
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.selectedTenureTag",
+            "variant": "caption",
+            "valueSource": {
+              "type": "binding",
+              "path": "selectedTenureTag"
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.estimatedMonthlyInstallmentLabel",
+            "variant": "caption",
+            "value": "Estimated monthly instalment"
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.estimatedMonthlyInstallment",
+            "variant": "title2",
+            "valueSource": {
+              "type": "binding",
+              "path": "estimatedMonthlyInstallment"
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.loanPurposeLabel",
+            "variant": "subhead",
+            "value": "Loan purpose"
+          }
+        },
+        {
+          "component": "Dropdown",
+          "options": {
+            "id": "properties.loanPurpose",
+            "placeholder": "Select loan purpose",
+            "disabled": false,
+            "value": "Education",
+            "action": {
+              "type": "OPEN_BOTTOM_SHEET",
+              "target": "select_loan_purpose_drawer"
+            }
+          },
+          "label": "Loan purpose"
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.nextButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "submit"
+            }
+          },
+          "label": "Next"
+        }
+      ]
+    },
+    "overlay": {
+      "select_loan_tenure_drawer": {
+        "type": "bottom-sheet",
+        "options": {
+          "id": "properties.selectLoanTenureDrawer",
+          "snapPoints": [
+            "42%"
+          ],
+          "enablePanDownToClose": true,
+          "enableBackdrop": true,
+          "backdropPressBehavior": "close"
+        },
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "BottomDrawerHeader",
+              "options": {
+                "id": "properties.selectLoanTenureTitle",
+                "title": "Select loan tenure/interest rate",
+                "showCloseButton": true
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "ListNavigation",
+              "options": {
+                "id": "properties.loanTenureOptions",
+                "items": [
+                  {
+                    "id": "loan-tenure-12m",
+                    "title": "12 months • 1.49% p.a.",
+                    "type": "drawer",
+                    "state": "default",
+                    "action": {
+                      "type": "SELECT_LOAN_TENURE_RATE",
+                      "payload": {
+                        "closeTarget": "select_loan_tenure_drawer",
+                        "data": {
+                          "loanTenureRate": "12 months • 1.49% p.a.",
+                          "selectedTenureTag": "Tenure: 12 months",
+                          "estimatedMonthlyInstallment": "IDR 4,520,000.00"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "id": "loan-tenure-24m",
+                    "title": "24 months • 1.59% p.a.",
+                    "type": "drawer",
+                    "state": "default",
+                    "action": {
+                      "type": "SELECT_LOAN_TENURE_RATE",
+                      "payload": {
+                        "closeTarget": "select_loan_tenure_drawer",
+                        "data": {
+                          "loanTenureRate": "24 months • 1.59% p.a.",
+                          "selectedTenureTag": "Tenure: 24 months",
+                          "estimatedMonthlyInstallment": "IDR 2,610,000.00"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "id": "loan-tenure-36m",
+                    "title": "36 months • 1.69% p.a.",
+                    "type": "drawer",
+                    "state": "selected",
+                    "action": {
+                      "type": "SELECT_LOAN_TENURE_RATE",
+                      "payload": {
+                        "closeTarget": "select_loan_tenure_drawer",
+                        "data": {
+                          "loanTenureRate": "36 months • 1.69% p.a.",
+                          "selectedTenureTag": "Tenure: 36 months",
+                          "estimatedMonthlyInstallment": "IDR 1,420,000.00"
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "select_loan_purpose_drawer": {
+        "type": "bottom-sheet",
+        "options": {
+          "id": "properties.selectLoanPurposeDrawer",
+          "snapPoints": [
+            "55%"
+          ],
+          "enablePanDownToClose": true,
+          "enableBackdrop": true,
+          "backdropPressBehavior": "close"
+        },
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "BottomDrawerHeader",
+              "options": {
+                "id": "properties.selectLoanPurposeTitle",
+                "title": "Select loan purpose",
+                "showCloseButton": true
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "ListNavigation",
+              "options": {
+                "id": "properties.loanPurposeOptions",
+                "items": [
+                  {
+                    "id": "loan-purpose-education",
+                    "title": "Education",
+                    "type": "drawer",
+                    "state": "selected",
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "loanPurpose",
+                      "value": "Education",
+                      "closeTarget": "select_loan_purpose_drawer"
+                    }
+                  },
+                  {
+                    "id": "loan-purpose-medical",
+                    "title": "Medical or healthcare",
+                    "type": "drawer",
+                    "state": "default",
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "loanPurpose",
+                      "value": "Medical or healthcare",
+                      "closeTarget": "select_loan_purpose_drawer"
+                    }
+                  },
+                  {
+                    "id": "loan-purpose-shopping",
+                    "title": "Shopping",
+                    "type": "drawer",
+                    "state": "default",
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "loanPurpose",
+                      "value": "Shopping",
+                      "closeTarget": "select_loan_purpose_drawer"
+                    }
+                  },
+                  {
+                    "id": "loan-purpose-home-renovation",
+                    "title": "Home renovation",
+                    "type": "drawer",
+                    "state": "default",
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "loanPurpose",
+                      "value": "Home renovation",
+                      "closeTarget": "select_loan_purpose_drawer"
+                    }
+                  },
+                  {
+                    "id": "loan-purpose-vacation",
+                    "title": "Vacation",
+                    "type": "drawer",
+                    "state": "default",
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "loanPurpose",
+                      "value": "Vacation",
+                      "closeTarget": "select_loan_purpose_drawer"
+                    }
+                  },
+                  {
+                    "id": "loan-purpose-wedding",
+                    "title": "Wedding",
+                    "type": "drawer",
+                    "state": "default",
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "loanPurpose",
+                      "value": "Wedding",
+                      "closeTarget": "select_loan_purpose_drawer"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "confirmLeave": {
+        "type": "modal",
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveTitle",
+                "variant": "title3",
+                "value": "Cancel application?",
+                "textAlign": "center",
+                "weight": "bold"
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveBody",
+                "variant": "body",
+                "value": "Your progress will not be saved. Are you sure you want to cancel?",
+                "textAlign": "center"
+              }
+            }
+          ]
+        },
+        "footer": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveYes",
+                    "variant": "destructive",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "navigate",
+                      "payload": {
+                        "target": "home"
+                      }
+                    }
+                  },
+                  "label": "Yes, cancel"
+                },
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveNo",
+                    "variant": "secondary",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "close_modal"
+                    }
+                  },
+                  "label": "Go back"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "data": {
+    "productName": "<Product name>",
+    "loanAmount": "50000000",
+    "loanTenureRate": "36 months • 1.69% p.a.",
+    "selectedTenureTag": "Tenure: 36 months",
+    "estimatedMonthlyInstallment": "IDR 1,420,000.00",
+    "loanPurpose": "Education"
+  }
+}

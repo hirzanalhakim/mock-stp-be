@@ -1,0 +1,479 @@
+{
+  "screenId": "apply_kta_select_disbursement_account",
+  "version": 1,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "productName": {
+        "type": "string"
+      },
+      "hasSingleAccount": {
+        "type": "boolean"
+      },
+      "selectedAccountId": {
+        "type": "string",
+        "oneOf": [
+          {
+            "const": "acc_001",
+            "title": "U Transaction Account iB"
+          },
+          {
+            "const": "acc_002",
+            "title": "Rekening RDN Konvensional"
+          },
+          {
+            "const": "acc_003",
+            "title": "My Family Virtual Account"
+          },
+          {
+            "const": "acc_004",
+            "title": "Maybank2u Savers-i"
+          }
+        ],
+        "messages": {
+          "required": "Please select disbursement account"
+        }
+      },
+      "selectedAccountName": {
+        "type": "string"
+      },
+      "selectedAccountNumber": {
+        "type": "string"
+      },
+      "selectedAccountBalance": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "selectedAccountId"
+    ]
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "TopNavigation",
+          "options": {
+            "id": "properties.topNav",
+            "title": "Apply",
+            "disableSafeArea": false,
+            "action": {
+              "type": "open_modal",
+              "payload": {
+                "target": "confirmLeave"
+              }
+            }
+          }
+        },
+        {
+          "component": "BarProgressIndicator",
+          "options": {
+            "id": "properties.progress",
+            "type": "steppers",
+            "progress": 88,
+            "currentStep": 7,
+            "totalSteps": 8
+          }
+        }
+      ]
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.productName",
+            "variant": "body",
+            "valueSource": {
+              "type": "binding",
+              "path": "productName"
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.screenTitle",
+            "variant": "title1",
+            "value": "Select disbursement account"
+          }
+        },
+        {
+          "component": "AlertBanner",
+          "options": {
+            "id": "properties.singleAccountBanner",
+            "severity": "info",
+            "alertContent": {
+              "title": "For payroll customers, disbursement and auto-debit payments will go to your Maybank payroll account."
+            }
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasSingleAccount",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.disburseToLabel",
+            "variant": "subhead",
+            "value": "Disburse to"
+          }
+        },
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "component": "StaticCard",
+              "options": {
+                "id": "properties.selectedAccountCard",
+                "variant": "horizontal",
+                "cardTitleSource": {
+                  "type": "binding",
+                  "path": "selectedAccountName"
+                },
+                "bodyLinesSource": {
+                  "type": "binding",
+                  "path": "selectedAccountNumber"
+                }
+              }
+            },
+            {
+              "component": "Button",
+              "options": {
+                "id": "properties.changeAccountButton",
+                "variant": "secondary",
+                "size": "sm",
+                "disabled": false,
+                "loading": false,
+                "action": {
+                  "type": "OPEN_BOTTOM_SHEET",
+                  "target": "select_disbursement_account_drawer"
+                }
+              },
+              "label": "Change"
+            }
+          ],
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasSingleAccount",
+              "schema": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "component": "List",
+          "options": {
+            "id": "properties.selectedAccountSummary",
+            "items": [
+              {
+                "id": 1,
+                "label": "Account",
+                "valueSource": {
+                  "type": "binding",
+                  "path": "selectedAccountName"
+                },
+                "iconName": null,
+                "image": null
+              },
+              {
+                "id": 2,
+                "label": "Number",
+                "valueSource": {
+                  "type": "binding",
+                  "path": "selectedAccountNumber"
+                },
+                "iconName": null,
+                "image": null
+              },
+              {
+                "id": 3,
+                "label": "Balance",
+                "valueSource": {
+                  "type": "binding",
+                  "path": "selectedAccountBalance"
+                },
+                "iconName": null,
+                "image": null
+              }
+            ]
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasSingleAccount",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.notesLabel",
+            "variant": "subhead",
+            "value": "Note:"
+          }
+        },
+        {
+          "component": "List",
+          "options": {
+            "id": "properties.disbursementNotes",
+            "items": [
+              {
+                "id": 1,
+                "label": "1.",
+                "value": "This disbursement account will also be used for the auto-debit of your monthly repayment.",
+                "iconName": null,
+                "image": null
+              },
+              {
+                "id": 2,
+                "label": "2.",
+                "value": "The account selected must be an active account.",
+                "iconName": null,
+                "image": null
+              },
+              {
+                "id": 3,
+                "label": "3.",
+                "value": "Your installment due date will be shown after your disbursement is successfully processed.",
+                "iconName": null,
+                "image": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.nextButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "submit"
+            }
+          },
+          "label": "Next"
+        }
+      ]
+    },
+    "overlay": {
+      "select_disbursement_account_drawer": {
+        "type": "bottom-sheet",
+        "options": {
+          "id": "properties.selectDisbursementAccountDrawer",
+          "snapPoints": [
+            "62%"
+          ],
+          "enablePanDownToClose": true,
+          "enableBackdrop": true,
+          "backdropPressBehavior": "close"
+        },
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "BottomDrawerHeader",
+              "options": {
+                "id": "properties.selectDisbursementAccountHeader",
+                "title": "Select disbursement account",
+                "showCloseButton": true
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "ListNavigation",
+              "options": {
+                "id": "properties.disbursementAccountOptions",
+                "items": [
+                  {
+                    "id": "acc_001",
+                    "title": "U Transaction Account iB",
+                    "description": "5012 3341 4612\nIDR 7,373,401.00",
+                    "type": "drawer",
+                    "state": "default",
+                    "showTag": true,
+                    "tag": "Primary",
+                    "action": {
+                      "type": "SELECT_DISBURSEMENT_ACCOUNT",
+                      "payload": {
+                        "closeTarget": "select_disbursement_account_drawer",
+                        "data": {
+                          "selectedAccountId": "acc_001",
+                          "selectedAccountName": "U Transaction Account iB",
+                          "selectedAccountNumber": "5012 3341 4612",
+                          "selectedAccountBalance": "IDR 7,373,401.00"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "id": "acc_002",
+                    "title": "Rekening RDN Konvensional",
+                    "description": "3233 5452 4532\nIDR 43,342,950.00",
+                    "type": "drawer",
+                    "state": "default",
+                    "action": {
+                      "type": "SELECT_DISBURSEMENT_ACCOUNT",
+                      "payload": {
+                        "closeTarget": "select_disbursement_account_drawer",
+                        "data": {
+                          "selectedAccountId": "acc_002",
+                          "selectedAccountName": "Rekening RDN Konvensional",
+                          "selectedAccountNumber": "3233 5452 4532",
+                          "selectedAccountBalance": "IDR 43,342,950.00"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "id": "acc_003",
+                    "title": "My Family Virtual Account",
+                    "description": "3241 3341 3421\nIDR 1,000.00",
+                    "type": "drawer",
+                    "state": "default",
+                    "action": {
+                      "type": "SELECT_DISBURSEMENT_ACCOUNT",
+                      "payload": {
+                        "closeTarget": "select_disbursement_account_drawer",
+                        "data": {
+                          "selectedAccountId": "acc_003",
+                          "selectedAccountName": "My Family Virtual Account",
+                          "selectedAccountNumber": "3241 3341 3421",
+                          "selectedAccountBalance": "IDR 1,000.00"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "id": "acc_004",
+                    "title": "Maybank2u Savers-i",
+                    "description": "5012 3341 4612\nIDR 0.00",
+                    "type": "drawer",
+                    "state": "default",
+                    "action": {
+                      "type": "SELECT_DISBURSEMENT_ACCOUNT",
+                      "payload": {
+                        "closeTarget": "select_disbursement_account_drawer",
+                        "data": {
+                          "selectedAccountId": "acc_004",
+                          "selectedAccountName": "Maybank2u Savers-i",
+                          "selectedAccountNumber": "5012 3341 4612",
+                          "selectedAccountBalance": "IDR 0.00"
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "confirmLeave": {
+        "type": "modal",
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveTitle",
+                "variant": "title3",
+                "value": "Cancel application?",
+                "textAlign": "center",
+                "weight": "bold"
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveBody",
+                "variant": "body",
+                "value": "Your progress will not be saved. Are you sure you want to cancel?",
+                "textAlign": "center"
+              }
+            }
+          ]
+        },
+        "footer": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveYes",
+                    "variant": "destructive",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "navigate",
+                      "payload": {
+                        "target": "home"
+                      }
+                    }
+                  },
+                  "label": "Yes, cancel"
+                },
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveNo",
+                    "variant": "secondary",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "close_modal"
+                    }
+                  },
+                  "label": "Go back"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "data": {
+    "productName": "<Product name>",
+    "hasSingleAccount": false,
+    "selectedAccountId": "acc_001",
+    "selectedAccountName": "U Transaction Account iB",
+    "selectedAccountNumber": "5012 3341 4612",
+    "selectedAccountBalance": "IDR 7,373,401.00"
+  }
+}

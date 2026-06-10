@@ -1,0 +1,295 @@
+{
+  "screenId": "apply_kta_terms_conditions",
+  "version": 1,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "productName": {
+        "type": "string"
+      },
+      "mainTermsAccepted": {
+        "type": "boolean",
+        "messages": {
+          "required": "You must agree to the main terms and conditions"
+        }
+      },
+      "otherBankOffersAccepted": {
+        "type": "boolean"
+      },
+      "reviewDocumentUrl": {
+        "type": "string"
+      },
+      "privacyNoticeUrl": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "mainTermsAccepted"
+    ]
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "TopNavigation",
+          "options": {
+            "id": "properties.topNav",
+            "title": "Apply",
+            "disableSafeArea": false,
+            "action": {
+              "type": "open_modal",
+              "payload": {
+                "target": "confirmLeave"
+              }
+            }
+          }
+        },
+        {
+          "component": "BarProgressIndicator",
+          "options": {
+            "id": "properties.progress",
+            "type": "steppers",
+            "progress": 100,
+            "currentStep": 8,
+            "totalSteps": 8
+          }
+        }
+      ]
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.productName",
+            "variant": "body",
+            "valueSource": {
+              "type": "binding",
+              "path": "productName"
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.screenTitle",
+            "variant": "title1",
+            "value": "Terms & Conditions"
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.screenSubtitle",
+            "variant": "body",
+            "value": "Review and agree to all the terms and conditions below to proceed."
+          }
+        },
+        {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Checkbox",
+              "options": {
+                "id": "properties.mainTermsAccepted",
+                "disabled": false
+              },
+              "label": "RIPLAY and Product Terms & Conditions"
+            },
+            {
+              "component": "Link",
+              "options": {
+                "id": "properties.reviewDocumentLink",
+                "label": "Review document",
+                "type": "underline",
+                "size": "sm",
+                "action": {
+                  "type": "OPEN_WEBVIEW",
+                  "target": "https://mock-stp-be.vercel.app/mock-webview/apply-kta-terms"
+                }
+              }
+            },
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.termsBullet1",
+                "variant": "body",
+                "value": "• RIPLAY Personal Product and Service Information Summary"
+              }
+            },
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.termsBullet2",
+                "variant": "body",
+                "value": "• Terms & Conditions: Savings Account"
+              }
+            },
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.termsBullet3",
+                "variant": "body",
+                "value": "• Terms & Conditions: Maybank Visa Infinite Credit Card"
+              }
+            }
+          ]
+        },
+        {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Checkbox",
+              "options": {
+                "id": "properties.otherBankOffersAccepted",
+                "disabled": false
+              },
+              "label": "Other Bank Product Offers (Optional)"
+            },
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.offersParagraph1",
+                "variant": "body",
+                "value": "1. I agree to be contacted by the Bank via my personal communication channels regarding offers for other banking products, whether belonging to the Bank or third parties, including promotional activities or commercial products and services from the Bank's partners."
+              }
+            },
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.offersParagraph2a",
+                "variant": "body",
+                "value": "2. I accept responsibility for all risks of loss associated with the disclosure of my data/information based on this consent, and I confirm that I have read and understood the Bank's"
+              }
+            },
+            {
+              "component": "Link",
+              "options": {
+                "id": "properties.privacyNoticeLink",
+                "label": "Privacy Notice",
+                "type": "underline",
+                "size": "sm",
+                "action": {
+                  "type": "OPEN_WEBVIEW",
+                  "target": "https://mock-stp-be.vercel.app/mock-webview/privacy-notice"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.nextButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": true,
+            "loading": false,
+            "action": {
+              "type": "submit"
+            }
+          },
+          "label": "Next",
+          "rule": {
+            "effect": "ENABLE",
+            "condition": {
+              "scope": "#/properties/mainTermsAccepted",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    "overlay": {
+      "confirmLeave": {
+        "type": "modal",
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveTitle",
+                "variant": "title3",
+                "value": "Cancel application?",
+                "textAlign": "center",
+                "weight": "bold"
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveBody",
+                "variant": "body",
+                "value": "Your progress will not be saved. Are you sure you want to cancel?",
+                "textAlign": "center"
+              }
+            }
+          ]
+        },
+        "footer": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveYes",
+                    "variant": "destructive",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "navigate",
+                      "payload": {
+                        "target": "home"
+                      }
+                    }
+                  },
+                  "label": "Yes, cancel"
+                },
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveNo",
+                    "variant": "secondary",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "close_modal"
+                    }
+                  },
+                  "label": "Go back"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "data": {
+    "productName": "<Product name>",
+    "mainTermsAccepted": false,
+    "otherBankOffersAccepted": false,
+    "reviewDocumentUrl": "https://mock-stp-be.vercel.app/mock-webview/apply-kta-terms",
+    "privacyNoticeUrl": "https://mock-stp-be.vercel.app/mock-webview/privacy-notice"
+  }
+}

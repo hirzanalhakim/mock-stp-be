@@ -1,0 +1,387 @@
+{
+  "screenId": "apply_kta_emergency_contact_details",
+  "version": 1,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "productName": {
+        "type": "string"
+      },
+      "mobileNumber": {
+        "type": "string",
+        "messages": {
+          "required": "Mobile number is required"
+        }
+      },
+      "fullNameAsPerEktp": {
+        "type": "string",
+        "messages": {
+          "required": "Full name is required"
+        }
+      },
+      "relationship": {
+        "type": "string",
+        "oneOf": [
+          {
+            "const": "Spouse",
+            "title": "Spouse"
+          },
+          {
+            "const": "Child",
+            "title": "Child"
+          },
+          {
+            "const": "Older brother/sister",
+            "title": "Older brother/sister"
+          },
+          {
+            "const": "Younger brother/sister",
+            "title": "Younger brother/sister"
+          },
+          {
+            "const": "Parents",
+            "title": "Parents"
+          },
+          {
+            "const": "Others",
+            "title": "Others"
+          },
+          {
+            "const": "Human resource department (HRD)",
+            "title": "Human resource department (HRD)"
+          }
+        ],
+        "messages": {
+          "required": "Please select relationship"
+        }
+      },
+      "relationshipSearch": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "mobileNumber",
+      "fullNameAsPerEktp",
+      "relationship"
+    ]
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "TopNavigation",
+          "options": {
+            "id": "properties.topNav",
+            "title": "Apply",
+            "disableSafeArea": false,
+            "action": {
+              "type": "open_modal",
+              "payload": {
+                "target": "confirmLeave"
+              }
+            }
+          }
+        },
+        {
+          "component": "BarProgressIndicator",
+          "options": {
+            "id": "properties.progress",
+            "type": "steppers",
+            "progress": 63,
+            "currentStep": 5,
+            "totalSteps": 8
+          }
+        }
+      ]
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.productName",
+            "variant": "body",
+            "valueSource": {
+              "type": "binding",
+              "path": "productName"
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.screenTitle",
+            "variant": "title1",
+            "value": "Emergency contact details"
+          }
+        },
+        {
+          "component": "TextInput",
+          "options": {
+            "id": "properties.mobileNumber",
+            "placeholder": "08 12 3456 7890",
+            "disabled": false
+          },
+          "label": "Mobile number"
+        },
+        {
+          "component": "TextInput",
+          "options": {
+            "id": "properties.fullNameAsPerEktp",
+            "placeholder": "Andhi",
+            "disabled": false
+          },
+          "label": "Full name as per e-KTP"
+        },
+        {
+          "component": "Dropdown",
+          "options": {
+            "id": "properties.relationship",
+            "placeholder": "Select relationship",
+            "disabled": false,
+            "value": "Older brother/sister",
+            "action": {
+              "type": "OPEN_BOTTOM_SHEET",
+              "target": "select_relationship_drawer"
+            }
+          },
+          "label": "Relationship"
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.nextButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "submit"
+            }
+          },
+          "label": "Next"
+        }
+      ]
+    },
+    "overlay": {
+      "select_relationship_drawer": {
+        "type": "bottom-sheet",
+        "options": {
+          "id": "properties.selectRelationshipDrawer",
+          "snapPoints": [
+            "78%"
+          ],
+          "enablePanDownToClose": true,
+          "enableBackdrop": true,
+          "backdropPressBehavior": "close"
+        },
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "BottomDrawerHeader",
+              "options": {
+                "id": "properties.selectRelationshipHeader",
+                "title": "Select relationship",
+                "showCloseButton": true
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "SearchInput",
+              "options": {
+                "id": "properties.relationshipSearch",
+                "placeholder": "search",
+                "disabled": false,
+                "showClear": true
+              }
+            },
+            {
+              "component": "ListNavigation",
+              "options": {
+                "id": "properties.relationshipOptions",
+                "items": [
+                  {
+                    "id": "relationship-spouse",
+                    "title": "Spouse",
+                    "type": "drawer",
+                    "state": "default",
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "relationship",
+                      "value": "Spouse",
+                      "closeTarget": "select_relationship_drawer"
+                    }
+                  },
+                  {
+                    "id": "relationship-child",
+                    "title": "Child",
+                    "type": "drawer",
+                    "state": "default",
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "relationship",
+                      "value": "Child",
+                      "closeTarget": "select_relationship_drawer"
+                    }
+                  },
+                  {
+                    "id": "relationship-older-sibling",
+                    "title": "Older brother/sister",
+                    "type": "drawer",
+                    "state": "default",
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "relationship",
+                      "value": "Older brother/sister",
+                      "closeTarget": "select_relationship_drawer"
+                    }
+                  },
+                  {
+                    "id": "relationship-younger-sibling",
+                    "title": "Younger brother/sister",
+                    "type": "drawer",
+                    "state": "default",
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "relationship",
+                      "value": "Younger brother/sister",
+                      "closeTarget": "select_relationship_drawer"
+                    }
+                  },
+                  {
+                    "id": "relationship-parents",
+                    "title": "Parents",
+                    "type": "drawer",
+                    "state": "default",
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "relationship",
+                      "value": "Parents",
+                      "closeTarget": "select_relationship_drawer"
+                    }
+                  },
+                  {
+                    "id": "relationship-others",
+                    "title": "Others",
+                    "type": "drawer",
+                    "state": "default",
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "relationship",
+                      "value": "Others",
+                      "closeTarget": "select_relationship_drawer"
+                    }
+                  },
+                  {
+                    "id": "relationship-hrd",
+                    "title": "Human resource department (HRD)",
+                    "type": "drawer",
+                    "state": "default",
+                    "action": {
+                      "type": "SELECT_VALUE",
+                      "field": "relationship",
+                      "value": "Human resource department (HRD)",
+                      "closeTarget": "select_relationship_drawer"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "confirmLeave": {
+        "type": "modal",
+        "header": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveTitle",
+                "variant": "title3",
+                "value": "Cancel application?",
+                "textAlign": "center",
+                "weight": "bold"
+              }
+            }
+          ]
+        },
+        "body": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.confirmLeaveBody",
+                "variant": "body",
+                "value": "Your progress will not be saved. Are you sure you want to cancel?",
+                "textAlign": "center"
+              }
+            }
+          ]
+        },
+        "footer": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveYes",
+                    "variant": "destructive",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "navigate",
+                      "payload": {
+                        "target": "home"
+                      }
+                    }
+                  },
+                  "label": "Yes, cancel"
+                },
+                {
+                  "component": "Button",
+                  "options": {
+                    "id": "properties.confirmLeaveNo",
+                    "variant": "secondary",
+                    "size": "lg",
+                    "disabled": false,
+                    "loading": false,
+                    "action": {
+                      "type": "close_modal"
+                    }
+                  },
+                  "label": "Go back"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "data": {
+    "productName": "<Product name>",
+    "mobileNumber": "08 12 3456 7890",
+    "fullNameAsPerEktp": "Andhi",
+    "relationship": "Older brother/sister",
+    "relationshipSearch": ""
+  }
+}

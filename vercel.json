@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/screen/:id",
-      "destination": "/api/screen/:id"
+      "source": "/screen/:flow/:id",
+      "destination": "/api/screen/:flow/:id"
     }
   ]
 }

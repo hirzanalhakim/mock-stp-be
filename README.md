@@ -4,6 +4,10 @@ Mock API untuk Vercel dengan sumber data dari file JSON di root project.
 
 ## Endpoint
 
+### Root
+
+- `GET /` -> status mock API dan daftar flow yang tersedia
+
 ### Example Flow
 
 - `GET /screen/example/1` -> `email_form.json`

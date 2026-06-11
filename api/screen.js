@@ -1,14 +1,12 @@
-const { getFlowScreens, setCorsHeaders } = require("../_lib/screen-flows");
+const { getFlowScreens, setCorsHeaders } = require("./_lib/screen-flows");
 
 const LEGACY_FLOW = "example";
 
-function resolveRequest(slug) {
-  if (!Array.isArray(slug) || slug.length === 0) {
-    return null;
-  }
+function resolveRequest(query) {
+  const { flow, id, legacyId } = query;
 
-  if (slug.length === 1) {
-    const legacyNumber = Number.parseInt(slug[0], 10);
+  if (legacyId !== undefined) {
+    const legacyNumber = Number.parseInt(legacyId, 10);
 
     if (!Number.isInteger(legacyNumber) || legacyNumber < 0) {
       return null;
@@ -16,28 +14,24 @@ function resolveRequest(slug) {
 
     return {
       flow: LEGACY_FLOW,
-      rawId: slug[0],
+      rawId: legacyId,
       screenNumber: legacyNumber + 1,
       isLegacy: true,
     };
   }
 
-  if (slug.length === 2) {
-    const screenNumber = Number.parseInt(slug[1], 10);
+  const screenNumber = Number.parseInt(id, 10);
 
-    if (!Number.isInteger(screenNumber) || screenNumber < 1) {
-      return null;
-    }
-
-    return {
-      flow: slug[0],
-      rawId: slug[1],
-      screenNumber,
-      isLegacy: false,
-    };
+  if (!flow || !Number.isInteger(screenNumber) || screenNumber < 1) {
+    return null;
   }
 
-  return null;
+  return {
+    flow,
+    rawId: id,
+    screenNumber,
+    isLegacy: false,
+  };
 }
 
 function buildPath(flow, screenNumber, isLegacy) {
@@ -63,13 +57,13 @@ module.exports = (req, res) => {
     );
   }
 
-  const resolved = resolveRequest(req.query.slug);
+  const resolved = resolveRequest(req.query);
 
   if (!resolved) {
     return res.status(404).send(
       JSON.stringify({
         error: "Screen not found",
-        requested: req.query.slug,
+        requested: req.query,
       }),
     );
   }

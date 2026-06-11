@@ -1,0 +1,155 @@
+{
+  "screenId": "time_deposit_terms_conditions",
+  "version": 1,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "termsAccepted": {
+        "type": "boolean",
+        "messages": {
+          "required": "You must review and agree to the terms and conditions"
+        }
+      },
+      "termsDocumentGroup": {
+        "type": "string"
+      },
+      "reviewDocumentUrl": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "termsAccepted"
+    ]
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "TopNavigation",
+          "options": {
+            "id": "properties.topNav",
+            "title": "Placement",
+            "disableSafeArea": false
+          }
+        },
+        {
+          "component": "BarProgressIndicator",
+          "options": {
+            "id": "properties.progress",
+            "type": "steppers",
+            "progress": 75,
+            "currentStep": 3,
+            "totalSteps": 4
+          }
+        }
+      ]
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.productName",
+            "value": "Deposito iB"
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.screenTitle",
+            "value": "Terms & Conditions"
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.screenSubtitle",
+            "value": "Review and agree to all the terms and conditions below to proceed."
+          }
+        },
+        {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "component": "Checkbox",
+              "options": {
+                "id": "properties.termsAccepted",
+                "disabled": false
+              },
+              "label": "RIPLAY and Product Terms & Conditions"
+            },
+            {
+              "component": "Link",
+              "options": {
+                "id": "properties.reviewDocumentLink",
+                "label": "Review document",
+                "type": "underline",
+                "size": "sm",
+                "action": {
+                  "type": "OPEN_WEBVIEW",
+                  "target": "https://mock-stp-be.vercel.app/mock-webview/time-deposit-terms"
+                }
+              }
+            },
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.termsBullet1",
+                "value": "• RIPLAY Personal Product and Service Information Summary"
+              }
+            },
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.termsBullet2",
+                "value": "• Terms & Conditions: Savings Account"
+              }
+            },
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.termsBullet3",
+                "value": "• Terms & Conditions: Maybank Visa Infinite Credit Card"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.nextButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": true,
+            "loading": false,
+            "action": {
+              "type": "submit"
+            }
+          },
+          "label": "Next",
+          "rule": {
+            "effect": "ENABLE",
+            "condition": {
+              "scope": "#/properties/termsAccepted",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "data": {
+    "termsAccepted": false,
+    "termsDocumentGroup": "RIPLAY and Product Terms & Conditions",
+    "reviewDocumentUrl": "https://mock-stp-be.vercel.app/mock-webview/time-deposit-terms"
+  }
+}

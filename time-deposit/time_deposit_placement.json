@@ -1,0 +1,209 @@
+{
+  "screenId": "time_deposit_placement",
+  "version": 1,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "currency": {
+        "type": "string",
+        "oneOf": [
+          {
+            "const": "IDR",
+            "title": "IDR"
+          },
+          {
+            "const": "USD",
+            "title": "USD"
+          }
+        ],
+        "messages": {
+          "required": "Please select a currency"
+        }
+      },
+      "principalAmount": {
+        "type": "string",
+        "messages": {
+          "required": "Principal amount is required"
+        }
+      },
+      "tenure": {
+        "type": "string",
+        "oneOf": [
+          {
+            "const": "1 month",
+            "title": "1 month"
+          },
+          {
+            "const": "3 months",
+            "title": "3 months"
+          },
+          {
+            "const": "6 months",
+            "title": "6 months"
+          },
+          {
+            "const": "12 months",
+            "title": "12 months"
+          }
+        ],
+        "messages": {
+          "required": "Please select a tenure"
+        }
+      },
+      "projectedRate": {
+        "type": "string"
+      },
+      "projectedReturns": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "currency",
+      "principalAmount",
+      "tenure"
+    ]
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "TopNavigation",
+          "options": {
+            "id": "properties.topNav",
+            "title": "Placement",
+            "disableSafeArea": false
+          }
+        },
+        {
+          "component": "BarProgressIndicator",
+          "options": {
+            "id": "properties.progress",
+            "type": "steppers",
+            "progress": 25,
+            "currentStep": 1,
+            "totalSteps": 4
+          }
+        }
+      ]
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.productName",
+            "value": "Deposito iB"
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.screenTitle",
+            "value": "Enter principal amount"
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.amountLabel",
+            "value": "Principal amount"
+          }
+        },
+        {
+          "component": "SegmentedControl",
+          "options": {
+            "id": "properties.currency",
+            "tabs": [
+              {
+                "key": "IDR",
+                "label": "IDR"
+              },
+              {
+                "key": "USD",
+                "label": "USD"
+              }
+            ],
+            "activeKey": "IDR",
+            "size": "large"
+          }
+        },
+        {
+          "component": "AmountInput",
+          "options": {
+            "id": "properties.principalAmount",
+            "value": "1500000000",
+            "placeholder": "0",
+            "prefixValue": "IDR",
+            "amountInputType": "manual-ID",
+            "variant": "amount",
+            "country": "ID",
+            "languageCode": "id",
+            "showDone": true
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.tenureLabel",
+            "value": "Tenure"
+          }
+        },
+        {
+          "component": "Dropdown",
+          "options": {
+            "id": "properties.tenure",
+            "placeholder": "Select tenure",
+            "disabled": false,
+            "value": "1 month",
+            "action": {
+              "type": "OPEN_BOTTOM_SHEET",
+              "target": "select_tenure_drawer"
+            }
+          },
+          "label": "Tenure"
+        },
+        {
+          "component": "Link",
+          "options": {
+            "id": "properties.checkReturnRates",
+            "label": "Check return rates",
+            "type": "underline",
+            "size": "sm",
+            "action": {
+              "type": "OPEN_BOTTOM_SHEET",
+              "target": "return_rates_drawer"
+            }
+          }
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.nextButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "submit"
+            }
+          },
+          "label": "Next"
+        }
+      ]
+    }
+  },
+  "data": {
+    "currency": "IDR",
+    "principalAmount": "1500000000",
+    "tenure": "1 month",
+    "projectedRate": "3.50% p.a.",
+    "projectedReturns": "IDR 4,375,000.00"
+  }
+}

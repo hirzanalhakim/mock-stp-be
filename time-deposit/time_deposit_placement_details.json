@@ -1,0 +1,304 @@
+{
+  "screenId": "time_deposit_placement_details",
+  "version": 1,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "principalAmount": {
+        "type": "string"
+      },
+      "tenure": {
+        "type": "string"
+      },
+      "indicativeRate": {
+        "type": "string"
+      },
+      "transferFromAccountName": {
+        "type": "string"
+      },
+      "transferFromAccountNumber": {
+        "type": "string"
+      },
+      "transferFromAccountBalance": {
+        "type": "string"
+      },
+      "hasMultipleTransferAccounts": {
+        "type": "boolean"
+      },
+      "maturityInstruction": {
+        "type": "string",
+        "oneOf": [
+          {
+            "const": "AUTO_ROLLOVER_PRINCIPAL_INTEREST",
+            "title": "Auto-rollover (principal & interest)"
+          },
+          {
+            "const": "AUTO_ROLLOVER_PRINCIPAL",
+            "title": "Auto-rollover (principal only)"
+          },
+          {
+            "const": "CREDIT_TO_ACCOUNT",
+            "title": "Credit to CASA account"
+          }
+        ],
+        "messages": {
+          "required": "Please select maturity instruction"
+        }
+      },
+      "akad": {
+        "type": "string"
+      },
+      "autoZakatContribution": {
+        "type": "string",
+        "oneOf": [
+          {
+            "const": "RETURNS_CONTRIBUTION",
+            "title": "2.5% from returns"
+          },
+          {
+            "const": "NO_CONTRIBUTION",
+            "title": "No contribution"
+          }
+        ],
+        "messages": {
+          "required": "Please select auto-zakat contribution"
+        }
+      }
+    },
+    "required": [
+      "maturityInstruction",
+      "autoZakatContribution"
+    ]
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "TopNavigation",
+          "options": {
+            "id": "properties.topNav",
+            "title": "Placement",
+            "disableSafeArea": false
+          }
+        },
+        {
+          "component": "BarProgressIndicator",
+          "options": {
+            "id": "properties.progress",
+            "type": "steppers",
+            "progress": 50,
+            "currentStep": 2,
+            "totalSteps": 4
+          }
+        }
+      ]
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.productName",
+            "value": "Deposito iB"
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.screenTitle",
+            "value": "Placement details"
+          }
+        },
+        {
+          "component": "StaticCard",
+          "options": {
+            "id": "properties.placementSummary",
+            "variant": "withDetails",
+            "detailRows": [
+              {
+                "label": "Principal amount",
+                "value": "IDR 1,500,000,000.00"
+              },
+              {
+                "label": "Tenure",
+                "value": "1 month"
+              },
+              {
+                "label": "Indicative rate of return",
+                "value": "3.50% p.a."
+              }
+            ]
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.transferFromLabel",
+            "value": "Transfer from"
+          }
+        },
+        {
+          "component": "StaticCard",
+          "options": {
+            "id": "properties.singleTransferAccountCard",
+            "variant": "horizontal",
+            "cardTitle": "U Transaction Account iB",
+            "media": {
+              "type": "avatar",
+              "avatarText": "",
+              "avatarBackgroundColor": "#FFC700"
+            },
+            "bodyLines": [
+              {
+                "value": "5012 3341 4612"
+              },
+              {
+                "value": "IDR 7,373,401.00"
+              }
+            ]
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasMultipleTransferAccounts",
+              "schema": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "component": "StaticCard",
+          "options": {
+            "id": "properties.multiTransferAccountCard",
+            "variant": "horizontal",
+            "cardTitle": "U Transaction Account iB",
+            "media": {
+              "type": "avatar",
+              "avatarText": "",
+              "avatarBackgroundColor": "#FFC700"
+            },
+            "bodyLines": [
+              {
+                "value": "5012 3341 4612"
+              },
+              {
+                "value": "IDR 7,373,401.00"
+              }
+            ],
+            "rightButton": {
+              "component": "Button",
+              "label": "Change",
+              "options": {
+                "id": "properties.changeTransferAccountButton",
+                "variant": "secondary",
+                "size": "sm",
+                "action": {
+                  "type": "OPEN_ACCOUNT_SELECTOR"
+                }
+              }
+            }
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/hasMultipleTransferAccounts",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "component": "Dropdown",
+          "options": {
+            "id": "properties.maturityInstruction",
+            "placeholder": "Select maturity instruction",
+            "disabled": false,
+            "value": "Auto-rollover (principal & interest)"
+          },
+          "label": "Maturity instruction"
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.maturityInstructionNote",
+            "value": "Upon maturity, a renewed placement will be made with both your principal amount and interest. The rate of return may differ with each auto-rollover."
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/maturityInstruction",
+              "schema": {
+                "const": "AUTO_ROLLOVER_PRINCIPAL_INTEREST"
+              }
+            }
+          }
+        },
+        {
+          "component": "TextInput",
+          "options": {
+            "id": "properties.akad",
+            "placeholder": "",
+            "disabled": true,
+            "defaultValue": "Mudharabah"
+          },
+          "label": "Akad"
+        },
+        {
+          "component": "RadioButton",
+          "options": {
+            "id": "properties.autoZakatContribution",
+            "groupDirection": "horizontal",
+            "value": "RETURNS_CONTRIBUTION",
+            "groupAccessibilityLabel": "Auto-Zakat contribution",
+            "options": [
+              {
+                "value": "RETURNS_CONTRIBUTION",
+                "label": "2.5% from returns"
+              },
+              {
+                "value": "NO_CONTRIBUTION",
+                "label": "No contribution"
+              }
+            ]
+          },
+          "label": "Auto-Zakat contribution"
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.nextButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "submit"
+            }
+          },
+          "label": "Next"
+        }
+      ]
+    }
+  },
+  "data": {
+    "principalAmount": "IDR 1,500,000,000.00",
+    "tenure": "1 month",
+    "indicativeRate": "3.50% p.a.",
+    "transferFromAccountName": "U Transaction Account iB",
+    "transferFromAccountNumber": "5012 3341 4612",
+    "transferFromAccountBalance": "IDR 7,373,401.00",
+    "hasMultipleTransferAccounts": true,
+    "maturityInstruction": "AUTO_ROLLOVER_PRINCIPAL_INTEREST",
+    "akad": "Mudharabah",
+    "autoZakatContribution": "RETURNS_CONTRIBUTION"
+  }
+}

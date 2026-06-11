@@ -1,0 +1,428 @@
+{
+  "screenId": "time_deposit_confirmation",
+  "version": 1,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "productName": {
+        "type": "string"
+      },
+      "productType": {
+        "type": "string"
+      },
+      "principalAmount": {
+        "type": "string"
+      },
+      "tenure": {
+        "type": "string"
+      },
+      "indicativeRate": {
+        "type": "string"
+      },
+      "redemptionCodeApplied": {
+        "type": "boolean"
+      },
+      "promoCode": {
+        "type": "string"
+      },
+      "referralCode": {
+        "type": "string"
+      },
+      "salesCode": {
+        "type": "string"
+      },
+      "transferFromAccountName": {
+        "type": "string"
+      },
+      "transferFromAccountNumber": {
+        "type": "string"
+      },
+      "transferFromAccountBalance": {
+        "type": "string"
+      },
+      "transactionType": {
+        "type": "string"
+      },
+      "maturityInstruction": {
+        "type": "string"
+      },
+      "akad": {
+        "type": "string"
+      },
+      "autoZakatContribution": {
+        "type": "string"
+      },
+      "fullName": {
+        "type": "string"
+      },
+      "emailAddress": {
+        "type": "string"
+      },
+      "declarationAccepted": {
+        "type": "boolean",
+        "messages": {
+          "required": "You must agree to the declaration before confirming"
+        }
+      }
+    },
+    "required": [
+      "declarationAccepted"
+    ]
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "TopNavigation",
+          "options": {
+            "id": "properties.topNav",
+            "title": "Confirmation",
+            "disableSafeArea": false
+          }
+        }
+      ]
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.placementForLabel",
+            "value": "Placement for"
+          }
+        },
+        {
+          "component": "StaticCard",
+          "options": {
+            "id": "properties.productCard",
+            "variant": "horizontal",
+            "cardTitle": "Deposito iB",
+            "media": {
+              "type": "avatar",
+              "avatarText": "",
+              "avatarBackgroundColor": "#FFC700"
+            },
+            "bodyLines": [
+              {
+                "value": "Time Deposit"
+              }
+            ]
+          }
+        },
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.amountDetailsLabel",
+                "value": "Amount details"
+              }
+            },
+            {
+              "component": "Link",
+              "options": {
+                "id": "properties.editAmountDetailsLink",
+                "label": "Edit",
+                "type": "underline",
+                "size": "sm",
+                "action": {
+                  "type": "NAVIGATE_BACK_TO_SCREEN",
+                  "target": "time_deposit_placement"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "component": "StaticCard",
+          "options": {
+            "id": "properties.amountDetailsCard",
+            "variant": "withDetails",
+            "detailRows": [
+              {
+                "label": "Principal amount",
+                "value": "IDR 1,500,000,000.00"
+              },
+              {
+                "label": "Tenure",
+                "value": "1 month"
+              },
+              {
+                "label": "Indicative rate of return",
+                "value": "3.50% p.a."
+              }
+            ]
+          }
+        },
+        {
+          "component": "Link",
+          "options": {
+            "id": "properties.applyRedemptionCodeLink",
+            "label": "Apply redemption code",
+            "type": "underline",
+            "size": "sm",
+            "action": {
+              "type": "OPEN_COMMON_FLOW",
+              "target": "apply_redemption_code"
+            }
+          }
+        },
+        {
+          "component": "StaticCard",
+          "options": {
+            "id": "properties.redemptionCodeCard",
+            "variant": "withDetails",
+            "detailRows": [
+              {
+                "label": "Promo code",
+                "value": "MBB"
+              },
+              {
+                "label": "Referral code",
+                "value": "MBB"
+              },
+              {
+                "label": "Sales code",
+                "value": "MBB"
+              }
+            ]
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/redemptionCodeApplied",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.redemptionCodeAppliedBanner",
+            "value": "Redemption code applied"
+          },
+          "rule": {
+            "effect": "SHOW",
+            "condition": {
+              "scope": "#/properties/redemptionCodeApplied",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.transferFromLabel",
+            "value": "Transfer from"
+          }
+        },
+        {
+          "component": "StaticCard",
+          "options": {
+            "id": "properties.transferFromCard",
+            "variant": "horizontal",
+            "cardTitle": "U Transaction Account iB",
+            "media": {
+              "type": "avatar",
+              "avatarText": "",
+              "avatarBackgroundColor": "#FFC700"
+            },
+            "bodyLines": [
+              {
+                "value": "5012 3341 4612"
+              },
+              {
+                "value": "IDR 7,373,401.00"
+              }
+            ],
+            "rightButton": {
+              "component": "Button",
+              "label": "Change",
+              "options": {
+                "id": "properties.changeTransferAccountButton",
+                "variant": "secondary",
+                "size": "sm",
+                "action": {
+                  "type": "OPEN_ACCOUNT_SELECTOR"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "component": "Typo",
+              "options": {
+                "id": "properties.placementDetailsLabel",
+                "value": "Placement details"
+              }
+            },
+            {
+              "component": "Link",
+              "options": {
+                "id": "properties.editPlacementDetailsLink",
+                "label": "Edit",
+                "type": "underline",
+                "size": "sm",
+                "action": {
+                  "type": "NAVIGATE_BACK_TO_SCREEN",
+                  "target": "time_deposit_placement_details"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "component": "StaticCard",
+          "options": {
+            "id": "properties.placementDetailsCard",
+            "variant": "withDetails",
+            "detailRows": [
+              {
+                "label": "Transaction type",
+                "value": "Time Deposit Placement"
+              },
+              {
+                "label": "Maturity instruction",
+                "value": "Auto-rollover (principal & interest)"
+              },
+              {
+                "label": "Akad",
+                "value": "Mudharabah"
+              },
+              {
+                "label": "Auto-Zakat contribution",
+                "value": "2.5% from returns"
+              }
+            ]
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.personalDetailsLabel",
+            "value": "Personal details"
+          }
+        },
+        {
+          "component": "StaticCard",
+          "options": {
+            "id": "properties.personalDetailsCard",
+            "variant": "withDetails",
+            "detailRows": [
+              {
+                "label": "Full name",
+                "value": "Azman Syah bin Hashim"
+              },
+              {
+                "label": "Email address",
+                "value": "az**an@address.com"
+              }
+            ]
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.declarationTitle",
+            "value": "By ticking the box below, I declare that:"
+          }
+        },
+        {
+          "component": "Checkbox",
+          "options": {
+            "id": "properties.declarationAccepted",
+            "disabled": false
+          },
+          "label": "I agree to the declaration below"
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.declarationItem1",
+            "value": "1. All information provided is true and accurate."
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.declarationItem2",
+            "value": "2. I am not a tax resident of any country outside Indonesia."
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.declarationItem3",
+            "value": "3. I am not a citizen and/or resident of the United States of America for tax purposes."
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.declarationItem4",
+            "value": "4. I have read, understood, and agreed to the applicable Terms & Conditions and RIPLAY."
+          }
+        }
+      ]
+    },
+    "footer": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.confirmButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": true,
+            "loading": false,
+            "action": {
+              "type": "submit"
+            }
+          },
+          "label": "Confirm",
+          "rule": {
+            "effect": "ENABLE",
+            "condition": {
+              "scope": "#/properties/declarationAccepted",
+              "schema": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "data": {
+    "productName": "Deposito iB",
+    "productType": "Time Deposit",
+    "principalAmount": "IDR 1,500,000,000.00",
+    "tenure": "1 month",
+    "indicativeRate": "3.50% p.a.",
+    "redemptionCodeApplied": true,
+    "promoCode": "MBB",
+    "referralCode": "MBB",
+    "salesCode": "MBB",
+    "transferFromAccountName": "U Transaction Account iB",
+    "transferFromAccountNumber": "5012 3341 4612",
+    "transferFromAccountBalance": "IDR 7,373,401.00",
+    "transactionType": "Time Deposit Placement",
+    "maturityInstruction": "Auto-rollover (principal & interest)",
+    "akad": "Mudharabah",
+    "autoZakatContribution": "2.5% from returns",
+    "fullName": "Azman Syah bin Hashim",
+    "emailAddress": "az**an@address.com",
+    "declarationAccepted": false
+  }
+}

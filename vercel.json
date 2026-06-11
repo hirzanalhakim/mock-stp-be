@@ -2,11 +2,11 @@
   "rewrites": [
     {
       "source": "/screen/:id",
-      "destination": "/api/screen/:id"
+      "destination": "/api/screen?legacyId=:id"
     },
     {
       "source": "/screen/:flow/:id",
-      "destination": "/api/screen/:flow/:id"
+      "destination": "/api/screen?flow=:flow&id=:id"
     }
   ]
 }

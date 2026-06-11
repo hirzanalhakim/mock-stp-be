@@ -1,0 +1,223 @@
+{
+  "screenId": "time_deposit_success",
+  "version": 1,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "successTitle": {
+        "type": "string"
+      },
+      "placedAt": {
+        "type": "string"
+      },
+      "referenceId": {
+        "type": "string"
+      },
+      "placementAmount": {
+        "type": "string"
+      },
+      "productName": {
+        "type": "string"
+      },
+      "depositAccountNumber": {
+        "type": "string"
+      },
+      "sourceAccountName": {
+        "type": "string"
+      },
+      "sourceAccountMaskedNumber": {
+        "type": "string"
+      }
+    },
+    "required": []
+  },
+  "uiSchema": {
+    "header": {
+      "type": "VerticalLayout",
+      "elements": []
+    },
+    "body": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.successIcon",
+            "value": "Success"
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.successTitle",
+            "value": "Placement successful"
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.placedAt",
+            "value": "3 Oct 2025, 9:41 AM"
+          }
+        },
+        {
+          "component": "Typo",
+          "options": {
+            "id": "properties.referenceId",
+            "value": "Ref ID: 1234567890"
+          }
+        },
+        {
+          "component": "CardBanner",
+          "options": {
+            "id": "properties.maybankBanner",
+            "type": "premier",
+            "accessibilityRole": "none",
+            "accessibilityLabel": "Maybank"
+          }
+        },
+        {
+          "component": "StaticCard",
+          "options": {
+            "id": "properties.summaryCard",
+            "variant": "withDetails",
+            "cardTitle": "IDR 1,500,000,000.00",
+            "subtitleLines": [
+              "Deposito iB",
+              "1903 1627 0555 01"
+            ],
+            "detailRows": [
+              {
+                "label": "From",
+                "value": "U Transaction Account iB"
+              },
+              {
+                "label": "",
+                "value": "**** **** 4612"
+              }
+            ]
+          }
+        },
+        {
+          "component": "Accordion",
+          "options": {
+            "id": "properties.detailsAccordion",
+            "variant": "card",
+            "allowMultiple": true,
+            "sections": [
+              {
+                "id": "amount-details",
+                "title": "Amount details",
+                "content": "Principal amount: IDR 1,500,000,000.00\nTenure: 1 month\nIndicative rate of return: 3.50% p.a."
+              },
+              {
+                "id": "redemption-code",
+                "title": "Redemption code",
+                "content": "Promo code: MBB\nReferral code: MBB\nSales code: MBB"
+              },
+              {
+                "id": "placement-details",
+                "title": "Placement details",
+                "content": "Maturity instruction: Auto-rollover (principal only)\nAkad: Mudharabah\nAuto-Zakat contribution: 2.5% from returns"
+              },
+              {
+                "id": "personal-details",
+                "title": "Personal details",
+                "content": "Full name: Azman Syah bin Hashim\nEmail address: az**an@address.com"
+              }
+            ]
+          }
+        },
+        {
+          "component": "ListNavigation",
+          "options": {
+            "id": "properties.investmentNav",
+            "items": [
+              {
+                "id": "investment-nav",
+                "title": "Investment",
+                "type": "row",
+                "state": "default",
+                "onPressAction": {
+                  "type": "NAVIGATE",
+                  "target": "investment_home"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.viewReceiptButton",
+            "variant": "secondary",
+            "size": "sm",
+            "action": {
+              "type": "OPEN_RECEIPT",
+              "target": "mock-receipt-time-deposit"
+            }
+          },
+          "label": "View Receipt"
+        },
+        {
+          "component": "CardBanner",
+          "options": {
+            "id": "properties.promoBanner",
+            "type": "previlege",
+            "onPress": {
+              "type": "OPEN_PROMO",
+              "target": "mock-promo-banner"
+            },
+            "accessibilityLabel": "Promotional banner",
+            "accessibilityHint": "Opens promotional details"
+          }
+        }
+      ]
+    },
+    "footer": {
+      "type": "HorizontalLayout",
+      "elements": [
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.shareButton",
+            "variant": "secondary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "SHARE_RECEIPT",
+              "target": "mock-receipt-time-deposit"
+            }
+          },
+          "label": "Share"
+        },
+        {
+          "component": "Button",
+          "options": {
+            "id": "properties.doneButton",
+            "variant": "primary",
+            "size": "lg",
+            "disabled": false,
+            "loading": false,
+            "action": {
+              "type": "NAVIGATE",
+              "target": "time_deposit_dashboard_home"
+            }
+          },
+          "label": "Done"
+        }
+      ]
+    }
+  },
+  "data": {
+    "successTitle": "Placement successful",
+    "placedAt": "3 Oct 2025, 9:41 AM",
+    "referenceId": "1234567890",
+    "placementAmount": "IDR 1,500,000,000.00",
+    "productName": "Deposito iB",
+    "depositAccountNumber": "1903 1627 0555 01",
+    "sourceAccountName": "U Transaction Account iB",
+    "sourceAccountMaskedNumber": "**** **** 4612"
+  }
+}
